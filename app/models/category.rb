@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  validates :name, presence: true
-
   has_many :lots
+
+  validates :name, presence: true, uniqueness: true
 end

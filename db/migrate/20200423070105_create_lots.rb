@@ -4,9 +4,9 @@ class CreateLots < ActiveRecord::Migration[6.0]
       t.string :title, null: false
       t.string :description
       t.string :image, null: false
-      t.string :status
-      t.string :state
-      t.string :price
+      t.integer :status, default: 0
+      t.integer :state
+      t.integer :price
       t.belongs_to :category
       t.belongs_to :user, null: false
 
