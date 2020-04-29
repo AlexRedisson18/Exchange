@@ -7,6 +7,7 @@ ruby '2.6.3'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'pg'
 gem 'pry-rails'
+gem 'devise'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
@@ -51,6 +52,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'database_cleaner-active_record'
 
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
