@@ -1,0 +1,15 @@
+<nav class="d-flex flex-column flex-md-row align-items-center p-3 bg-white border-bottom sticky-top">
+  <h5 class="my-0 mr-md-auto font-weight-normal">SHIT EXCHANGE</h5>
+
+  <form class="form-inline">
+    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+    <%= link_to "ADD LISTING", home_path, class: 'btn btn-success mx-2' %>
+
+    <% if user_signed_in? %>
+      <%= link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'text-success' %>
+    <% else %>
+      <%= link_to "LOG IN", "", class: 'text-success', data: { toggle: "modal", target: "#loginModal" } %>
+    <% end %>
+  </form>
+</nav>
+<%= render 'shared/login_form' %>

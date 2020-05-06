@@ -8,6 +8,8 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'pg'
 gem 'pry-rails'
 gem 'devise'
+gem 'bootstrap', '~> 4.4.1'
+gem 'jquery-rails'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.1'

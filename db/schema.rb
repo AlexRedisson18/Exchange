@@ -25,15 +25,25 @@ ActiveRecord::Schema.define(version: 2020_04_23_083056) do
     t.string "title", null: false
     t.string "description"
     t.string "image", null: false
-    t.integer "status", default: 0
-    t.integer "state"
-    t.integer "price"
+    t.string "status"
+    t.string "state"
+    t.string "price"
     t.bigint "category_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_lots_on_category_id"
     t.index ["user_id"], name: "index_lots_on_user_id"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.string "status"
+    t.bigint "requested_lot_id", null: false
+    t.bigint "suggested_lot_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["requested_lot_id"], name: "index_offers_on_requested_lot_id"
+    t.index ["suggested_lot_id"], name: "index_offers_on_suggested_lot_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,15 +63,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_083056) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "offers", force: :cascade do |t|
-    t.string "status"
-    t.bigint "requested_lot_id", null: false
-    t.bigint "suggested_lot_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["requested_lot_id"], name: "index_offers_on_requested_lot_id"
-    t.index ["suggested_lot_id"], name: "index_offers_on_suggested_lot_id"
   end
 
 end
