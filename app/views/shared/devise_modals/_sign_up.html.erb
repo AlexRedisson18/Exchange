@@ -1,0 +1,70 @@
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labellebdy="signUpModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content shadow" >
+
+      <div class="modal-header border-0 flex-column" >
+        <div class="w-100">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="close-modal-cross">&times;</span>
+          </button>
+        </div>
+        <div class="text-center w-100">
+           <h5 class="modal-title my-3">SIGN UP</h5>
+        </div>
+      </div>
+
+      <div class="modal-body">
+          <%= form_for(:user, :url => registration_path(:user), html: { class: 'mx-5 px-4' } ) do |f| %>
+
+          <div class="form-group">
+            <small class="form-text text-muted">First name</small>
+            <%= f.text_field :first_name, class: "form-control modalInput" %>
+          </div>
+
+          <div class="form-group">
+            <small class="form-text text-muted">Last name</small>
+            <%= f.text_field :last_name, class: "form-control modalInput" %>
+          </div>
+
+          <div class="form-group">
+            <small class="form-text text-muted">Email</small>
+            <%= f.email_field :email, class: "form-control modalInput" %>
+          </div>
+
+          <div class="form-group">
+            <small class="form-text text-muted">Phone number</small>
+            <%= f.text_field :phone_number, class: "form-control modalInput" %>
+          </div>
+
+          <div class="form-group">
+            <small  class="form-text text-muted">Password</small>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <%= f.password_field :password, class: "form-control modalInput" %>
+          </div>
+
+          <div class="form-group">
+            <small  class="form-text text-muted">Password confirmation</small>
+            <%= f.password_field :password_confirmation, class: "form-control modalInput"  %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "SIGN UP", class: "btn mt-1 w-100 text-light", id: 'modalSubmitButton'  %>
+          </div>
+        <% end %>
+
+        <div class="text-center flex-column border-0 mt-3">
+          <div class="my-5">
+            <small  class="form-text text-muted">Already have an account?</small>
+            <%= link_to "Log in", "", data: { toggle: "modal", target: "#loginModal", dismiss: "modal" }, class: "footer-link" %>
+          </div>
+          <div class="my-5">
+            <%= link_to "Forgot your password?", new_password_path(:user), class: "footer-link" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

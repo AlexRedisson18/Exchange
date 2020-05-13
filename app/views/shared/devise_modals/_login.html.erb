@@ -1,0 +1,60 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labellebdy="loginModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content shadow">
+
+
+      <div class="modal-header border-0 flex-column" >
+        <div class="w-100">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="close-modal-cross">&times;</span>
+          </button>
+        </div>
+        <div class="text-center w-100">
+           <h5 class="modal-title my-3">LOG IN</h5>
+        </div>
+      </div>
+
+      <div class="modal-body ">
+        <div class="errors"></div>
+
+        <%= form_for(User.new, url: session_path(:user), html:{id: 'sign_in_user', :'data-type' => 'json'}, html: { class: 'mx-5 px-4' }, remote: true) do |f| %>
+        <!-- another two form version below -->
+        <%# <%= form_for(:user, :url => registration_path(:user), html: { class: 'mx-5 px-4' } ) do |f| %>
+        <%# <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+          <div class="form-group">
+            <small class="form-text text-muted">Email</small>
+            <%= f.email_field :email, class: "form-control modalInput" %>
+          </div>
+
+          <div class="form-group">
+            <small  class="form-text text-muted">Password</small>
+            <%= f.password_field :password, class: "form-control modalInput" %>
+          </div>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="loginCheck">
+              <label class="form-check-label" for="loginCheck">Remember me</label>
+            </div>
+          <% end %>
+
+          <div class="actions">
+            <%= f.submit "LOG IN", class: "btn mt-1 w-100 text-light", id: 'modalSubmitButton'  %>
+          </div>
+        <% end %>
+
+        <div class="text-center flex-column border-0 mt-3">
+          <div class="my-5">
+            <%= link_to "or Sign up", new_user_registration_path, data: { toggle: "modal", target: "#signUpModal", dismiss: "modal" }, class: "footer-link" %>
+          </div>
+          <div class="my-5">
+            <%= link_to "Forgot your password?", new_password_path(:user), class: "footer-link" %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
