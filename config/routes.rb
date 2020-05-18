@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   get 'welcome/home'
-  devise_for :users, controllers: {
-          sessions: 'users/sessions'
-  }
+
+devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations' }
 
   root 'welcome#home', as: 'home'
 

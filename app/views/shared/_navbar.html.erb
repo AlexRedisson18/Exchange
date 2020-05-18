@@ -1,17 +1,19 @@
 <nav class="d-flex flex-column flex-md-row align-items-center p-3 bg-white border-0 sticky-top">
-  <h5 class="my-0 mr-md-auto font-weight-normal">SHIT EXCHANGE</h5>
+  <%= link_to "SHIT EXCHANGE", home_path, class: 'my-0 mr-md-auto font-weight-normal login-btn' %>
 
   <form class="form-inline">
     <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
     <%= link_to "ADD LISTING", home_path, class: 'btn mx-2 text-light', id: 'modalSubmitButton' %>
 
     <% if user_signed_in? %>
-      <%= link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'text-success', id: 'navLink' %>
+      <%= link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'login-btn' %>
     <% else %>
-      <%= link_to "LOGIN", "", class: 'login-btn', id: 'navLink', data: { toggle: "modal", target: "#loginModal" } %>
+      <%= link_to "LOGIN", "", class: 'login-btn', data: { toggle: "modal", target: "#sign_in_modal" } %>
     <% end %>
   </form>
 </nav>
 
-<%= render 'shared/devise_modals/login' %>
+<%= render 'shared/devise_modals/sign_in' %>
 <%= render 'shared/devise_modals/sign_up' %>
+<%= render 'shared/devise_modals/new_password' %>
+<%= render 'shared/devise_modals/new_confirmation' %>

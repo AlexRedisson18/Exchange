@@ -1,0 +1,16 @@
+<div class="text-center flex-column border-0 mt-3">
+
+  <div class="my-3">
+    <%= link_to "Log in", "", data: { toggle: "modal", target: "#sign_in_modal", dismiss: "modal" }, class: "footer-link" %>
+  </div>
+
+  <div class="my-3">
+    <%= link_to "Sign up", "", data: { toggle: "modal", target: "#sign_up_modal", dismiss: "modal" }, class: "footer-link" %>
+  </div>
+
+    <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <div class="my-3">
+      <%= link_to "Didn't receive confirmation instructions?", "", data: { toggle: "modal", target: "#new_confirmation_modal", dismiss: "modal" }, class: "footer-link" %>
+    </div>
+    <% end %>
+</div>
