@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    $('#close-modal-cross','#sign_in_modal').on("click", function(){
+    $('#close-modal-cross').on("click", function(){
      $(".modal-errors").empty();
     });
 
