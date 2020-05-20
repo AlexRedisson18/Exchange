@@ -12,3 +12,14 @@ Metrics/MethodLength:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*
+    - bin/**/*
+    - log/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - node_modules/**/*
+    - config/initializers/devise.rb

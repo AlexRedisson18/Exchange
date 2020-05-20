@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const error_messages =  $.map(errors, function(v, k) {
         return `<div class='alert alert-danger pull-left'>${v}</div>`;
       }).join("")
-      return $('.modal').find('.modal-errors').html(error_messages);
+      return $('#sign-in-modal').find('.modal-errors').html(error_messages);
     });
 });
 
@@ -50,25 +50,25 @@ document.addEventListener('DOMContentLoaded', function() {
     .bind("ajax:error", function(event) {
       const errors = event.detail[0]["errors"]
       const errorList = $.map(errors, function(v, k) {
-        const errorMessage =  `<div class='alert alert-danger pull-left'>${v.join(",")}</div>`
+        const errorMessage =  `<div class='alert alert-danger pull-left'>${v.join("<br>")}</div>`
         switch(k) {
           case 'email':
-            $('#sign_up_modal').find('.email-error').html(errorMessage);
+            $('#sign-up-modal').find('.email-error').html(errorMessage);
             break;
           case 'password':
-            $('#sign_up_modal').find('.password-error').html(errorMessage);
+            $('#sign-up-modal').find('.password-error').html(errorMessage);
             break;
           case 'name':
-            $('#sign_up_modal').find('.name-error').html(errorMessage);
+            $('#sign-up-modal').find('.name-error').html(errorMessage);
             break;
           case 'phone_number':
-            $('#sign_up_modal').find('.phone-number-error').html(errorMessage);
+            $('#sign-up-modal').find('.phone-number-error').html(errorMessage);
             break;
           case 'password_confirmation':
-            $('#sign_up_modal').find('.password-confirmation-error').html(errorMessage);
+            $('#sign-up-modal').find('.password-confirmation-error').html(errorMessage);
             break;
           default:
-          $('#sign_up_modal').find('.modal-errors').html(errorMessage);
+           $('#sign-up-modal').find('.modal-errors').html(errorMessage);
             break;
         }
       });
@@ -81,5 +81,4 @@ document.addEventListener('DOMContentLoaded', function() {
     $('.modal').on("click", function(){
      $(".modal-errors").empty();
     });
-
 });

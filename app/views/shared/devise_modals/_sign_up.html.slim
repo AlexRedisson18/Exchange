@@ -1,0 +1,52 @@
+#sign-up-modal.modal.fade[tabindex="-1" role="dialog" aria-labellebdy="signUpModal" aria-hidden="true"]
+  .modal-dialog.modal-dialog-centered.modal-dialog[role="document"]
+    .modal-content.shadow
+      .modal-header.border-0.flex-column
+        .w-100
+          button.close[type="button" data-dismiss="modal" aria-label="Close"]
+            span#close-modal-cross[aria-hidden="true"]
+              | ×
+        .text-center.w-100
+          h5.modal-title.my-3
+            | SIGN UP
+      .modal-body.mx-5.px-4
+        = form_for(:user, url: registration_path(:user), html: { id: 'sign_up_user', :'data-type' => 'json' }, remote: true) do |f|
+          .form-group
+            small.form-text
+              | Name
+            = f.text_field :name, class: "form-control modal-input"
+          .name-error.modal-errors
+          .form-group
+            small.form-text
+              | Phone number
+            = f.text_field :phone_number, class: "form-control modal-input"
+          .phone-number-error.modal-errors
+          .form-group
+            small.form-text
+              | Email
+            = f.email_field :email, class: "form-control modal-input"
+          .email-error.modal-errors
+          .form-group
+            small.form-text
+              | Password
+            - if @minimum_password_length
+              em
+                | (
+                = @minimum_password_length
+                |  characters minimum)
+            = f.password_field :password, class: "form-control modal-input"
+          .password-error.modal-errors
+          .form-group
+            small.form-text
+              | Password confirmation
+            = f.password_field :password_confirmation, class: "form-control modal-input"
+          .password-confirmation-error.password-error.modal-errors
+          .actions
+            = f.submit "SIGN UP", class: "btn mt-3 w-100 text-light", id: 'modal-submit-button'
+        .text-center.flex-column.border-0.mt-3
+          .my-5
+            small.form-text.text-muted
+              | Already have an account?
+            = link_to "Log in", "", data: { toggle: "modal", target: "#sign-in-modal", dismiss: "modal" }, class: "footer-link"
+          .my-5
+            = link_to "Forgot your password?", "", data: { toggle: "modal", target: "#new-password-modal", dismiss: "modal" }, class: "footer-link"
