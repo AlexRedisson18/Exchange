@@ -10,7 +10,7 @@
           h5.modal-title.my-3
             | SIGN UP
       .modal-body.mx-5.px-4
-        = form_for(:user, url: registration_path(:user), html: { id: 'sign_up_user', :'data-type' => 'json' }, remote: true) do |f|
+        = form_for(:user, url: registration_path(:user), html: { id: 'sign-up-user', :'data-type' => 'json' }, remote: true) do |f|
           .form-group
             small.form-text
               | Name
