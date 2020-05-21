@@ -10,7 +10,7 @@
           h5.modal-title.my-2
             | Resend confirmation instructions
       .modal-body.mx-5.px-4
-        = form_for(:user, url: password_path(:user), confirmation_path: { method: :post }, remote: true) do |f|
+        = form_for(:user, url: password_path(:user), confirmation_path: { method: :post }, html: { method: :post, :'data-type' => 'json', id: 'new-conformation-user' }, remote: true) do |f|
           .form-group
             small.form-text
               | Email
