@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+  // fill .modal-errors div in sign-in-user modal
   $("form#sign-in-user")
   .bind("ajax:success", function(event) {
     $(this).parents('.modal').modal('hide');
     location.reload();
   })
   .bind("ajax:error", function(event) {
-    const [errors, data, xhr] = event.detail
-    const error_messages =  $.map(errors, function(v, k) {
-      return `<div class='alert alert-danger pull-left'>${v}</div>`;
+    const [errors, status, xhr] = event.detail
+    const error_messages =  $.map(errors, function(value, key) {
+      return `<div class='alert alert-danger pull-left'>${value}</div>`;
     }).join("")
     return $('#sign-in-modal').find('.modal-errors').html(error_messages);
   });
 
+  // fill .modal-errors div in sign-up-user modal
   $("form#sign-up-user")
     .bind("ajax:success", function(event) {
       $(this).parents('.modal').modal('hide');
@@ -19,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .bind("ajax:error", function(event) {
       const errors = event.detail[0]["errors"]
-      const errorList = $.map(errors, function(v, k) {
-        const errorMessage =  `<div class='alert alert-danger pull-left'>${v.join("<br>")}</div>`
-        switch(k) {
+      const errorList = $.map(errors, function(value, key) {
+        const errorMessage =  `<div class='alert alert-danger pull-left'>${value.join("<br>")}</div>`
+        switch(key) {
           case 'email':
             $('#sign-up-modal').find('.email-error').html(errorMessage);
             break;
@@ -38,17 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#sign-up-modal').find('.password-confirmation-error').html(errorMessage);
             break;
           default:
-           $('#sign-up-modal').find('.modal-errors').html(errorMessage);
+            $('#sign-up-modal').find('.modal-errors').html(errorMessage);
             break;
         }
       });
     });
 
-  $('#close-modal-cross').on("click", function(){
-   $(".modal-errors").empty();
-  });
-
-  $('.modal').on("click", function(){
-   $(".modal-errors").empty();
+  // clear error and input fields data after closing the modal
+  $('.modal').on('hide.bs.modal', function () {
+    $(".modal-errors").empty();
+    $(".modal-input").val('');
   });
 });
