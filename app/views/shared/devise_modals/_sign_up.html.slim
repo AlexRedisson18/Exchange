@@ -14,8 +14,8 @@
           .form-group
             small.form-text
               | Email
-              .email-error.modal-errors
             = f.email_field :email, class: "form-control modal-input"
+            .email-error.modal-errors
           .form-group
             small.form-text
               | Password
@@ -24,13 +24,13 @@
                 | (
                 = @minimum_password_length
                 |  characters minimum)
-            .password-error.modal-errors
             = f.password_field :password, class: "form-control modal-input"
+            .password-error.modal-errors
           .form-group
             small.form-text
               | Password confirmation
-            .password-confirmation-error.password-error.modal-errors
             = f.password_field :password_confirmation, class: "form-control modal-input"
+            .password-confirmation-error.password-error.modal-errors
           .actions
             = f.submit "SIGN UP", class: "btn mt-3 w-100 text-light", id: 'modal-submit-button'
         .text-center.flex-column.border-0.mt-3

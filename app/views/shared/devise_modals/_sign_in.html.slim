@@ -7,10 +7,10 @@
             span#close-modal-cross[aria-hidden="true"]
               | ×
         .text-center.w-100
-          h5.modal-title.my-3
+          h5.modal-title.mt-3
             | LOG IN
       .modal-body.mx-5.px-4
-        .modal-errors
+        .modal-errors.mb-4
         = form_for(:user, url: session_path(:user), html: { id: 'sign-in-user', :'data-type' => 'json' }, remote: true) do |f|
           .form-group
             small.form-text

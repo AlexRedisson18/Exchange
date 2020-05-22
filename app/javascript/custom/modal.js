@@ -9,9 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
   .bind("ajax:error", function(event) {
     const [errors, status, xhr] = event.detail
     const error_messages =  $.map(errors, function(value, key) {
-      return `<div class='pull-left'><p class="text-danger">${key}: ${value}</p></div>`;
+      return `<p class="text-danger">${value}</p>`;
     }).join("");
-    debugger
     return $('.modal').find('.modal-errors').html(error_messages);
   });
 
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .bind("ajax:error", function(event) {
       const errors = event.detail[0]["errors"]
       const errorList = $.map(errors, function(value, key) {
-        const errorMessage =  `<div class='pull-left'><p class="text-danger my-1">${value.join('<br>')}</p></div>`
+        const errorMessage = `<p class="text-danger">${value.join(',')}</p>`
         switch(key) {
           case 'email':
             $('#sign-up-modal').find('.email-error').html(errorMessage);
@@ -56,25 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // open modal error after click "change password link", and add token to appropriate field
-  let searchParams = new URLSearchParams(window.location.search)
+  const openEditPasswordModal = () => {
+    let searchParams = new URLSearchParams(window.location.search)
 
-  const openModal = () => {
-    $(function () {
-      if (searchParams.has('open_modal')) {
-        $("#edit-password-modal").modal("show");
-      }
-    });
-  }
+    const checkToken = () => {
+      $(function () {
+        if (searchParams.has('reset_password_token')) {
+          $("#edit-password-modal").modal("show");
+        };
+      const token = searchParams.get('reset_password_token');
+      $("#reset-password-token").val(token);
+      });
+    };
+    checkToken();
+  };
 
-  const addToken = () => {
-    const token = searchParams.get('reset_password_token');
-    $("#reset-password-token").val(token);
-  }
-
-  const preparePage = () => {
-    openModal();
-    addToken();
-  }
-
-  preparePage();
+  openEditPasswordModal();
 });
