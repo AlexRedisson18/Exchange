@@ -19,8 +19,8 @@ html
         .alert.alert-warning
           = alert
       = yield
-      = render 'shared/devise_modals/sign_in'
-      = render 'shared/devise_modals/sign_up'
-      = render 'shared/devise_modals/new_password'
-      = render 'shared/devise_modals/new_confirmation'
-      = render 'shared/devise_modals/edit_password'
+      = render 'users/sessions/new'
+      = render 'users/registrations/new'
+      = render 'users/passwords/new'
+      = render 'users/passwords/edit'
+      = render 'users/confirmations/new'

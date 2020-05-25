@@ -1,0 +1,45 @@
+#sign-up-modal.modal.fade[tabindex="-1" role="dialog" aria-labellebdy="sign-up-modal" aria-hidden="true"]
+  .modal-dialog.modal-dialog-centered.modal-dialog[role="document"]
+    .modal-content.shadow
+
+      .modal-header.border-0.flex-column
+        .w-100
+          button.close[type="button" data-dismiss="modal" aria-label="Close"]
+            span#close-modal-cross[aria-hidden="true"]
+              | ×
+        .text-center.w-100
+          h5.modal-title.mt-3
+            | SIGN UP
+
+      .modal-body.mx-5.px-4.py-0
+        .mb-4
+          = form_for(:user, url: registration_path(:user), html: { id: 'sign-up-user', :'data-type' => 'json' }, remote: true) do |f|
+            .form-group
+              small.form-text
+                | Email
+              = f.email_field :email, class: "form-control modal-input"
+              .email-error.modal-errors
+            .form-group
+              small.form-text
+                | Password
+              - if @minimum_password_length
+                em
+                  | (
+                  = @minimum_password_length
+                  |  characters minimum)
+              = f.password_field :password, class: "form-control modal-input"
+              .password-error.modal-errors
+            .form-group
+              small.form-text
+                | Password confirmation
+              = f.password_field :password_confirmation, class: "form-control modal-input"
+              .password-confirmation-error.password-error.modal-errors
+            .actions
+              = f.submit "SIGN UP", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button'
+        .text-center.flex-column.border-0.mt-3
+          .mb-4
+            small.form-text.text-muted
+              | Already have an account?
+            = link_to "Log in", "", data: { toggle: "modal", target: "#sign-in-modal", dismiss: "modal" }, class: "link"
+          .mb-4
+            = link_to "Forgot your password?", "", data: { toggle: "modal", target: "#new-password-modal", dismiss: "modal" }, class: "link"

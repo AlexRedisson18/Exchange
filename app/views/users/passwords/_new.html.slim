@@ -1,0 +1,27 @@
+#new-password-modal.modal.fade[tabindex="-1" role="dialog" aria-labellebdy="new-password-modal" aria-hidden="true"]
+  .modal-dialog.modal-dialog-centered[role="document"]
+    .modal-content.shadow
+
+      .modal-header.border-0.flex-column
+        .w-100
+          button.close[type="button" data-dismiss="modal" aria-label="Close"]
+            span#close-modal-cross[aria-hidden="true"]
+              | ×
+        .text-center.w-100
+          h5.modal-title.mt-3
+            | Forgot your password?
+
+      .modal-body.mx-5.px-4.py-0
+        .mb-4
+          = form_for(:user, url: password_path(:user), html: { method: :post, id: 'new-password-user', :'data-type' => 'json', remote: true }) do |f|
+            .form-group
+              small.form-text
+                | Email
+              = f.email_field :email, class: "form-control modal-input"
+              .modal-errors
+            .actions
+              = f.submit "SEND", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button'
+        .text-center.flex-column.border-0.mt-3
+          = render "users/shared/links"
+          .mb-4
+            = link_to "Didn't receive confirmation instructions?", "", data: { toggle: "modal", target: "#new-confirmation-modal", dismiss: "modal" }, class: "link"

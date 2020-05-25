@@ -1,0 +1,35 @@
+#edit-password-modal.modal.fade[tabindex="-1" role="dialog" aria-labellebdy="edit-password-modal" aria-hidden="true"]
+  .modal-dialog.modal-dialog-centered[role="document"]
+    .modal-content.shadow
+
+      .modal-header.border-0.flex-column
+        .w-100
+          button.close[type="button" data-dismiss="modal" aria-label="Close"]
+            span#close-modal-cross[aria-hidden="true"]
+              | ×
+        .text-center.w-100
+          h5.modal-title.mt-3
+            | UPDATE PASSWORD
+
+      .modal-body.mx-5.px-4.py-0
+        .mb-4
+          = form_for(:user, url: password_path(:user), html: { method: :put, :'data-type' => 'json', id: 'edit-password-user', remote: true }) do |f|
+            = f.hidden_field :reset_password_token, id: 'reset-password-token'
+            .form-group
+              small.form-text
+                | New password
+              - if @minimum_password_length
+                small.form-text
+                  | (
+                  = @minimum_password_length
+                  |  characters minimum)
+              = f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control modal-input"
+              .modal-errors
+            .form-group
+              small.form-text
+                | Confirm new password
+              = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control modal-input"
+            .actions
+              = f.submit "CHANGE PASSWORD", class: "btn mt-3 w-100 text-light ", id: 'modal-submit-button'
+        .text-center.flex-column.border-0.mt-3
+          = render "users/shared/links"
