@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener("load", () => {
 
   // fills .modal-errors div in sign-in-user modal
   $("form#sign-in-user")
