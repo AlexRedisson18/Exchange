@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
   $("form#new-password-user, form#edit-password-user, form#new-conformation-user")
   .bind("ajax:success", function(event) {
     $(this).parents('.modal').modal('hide');
-    location.reload();
   })
   .bind("ajax:error", function(event) {
     const errors = event.detail[0]["errors"]

@@ -21,8 +21,9 @@ Rails.application.routes.draw do
     delete '/users', to: 'users/registrations#destroy', as: nil
     post '/users', to: 'users/registrations#create', as: nil
 
-    post '/users/confirmation', to: 'users/confirmations#create', as: 'user_confirmation'
+    get 'users/confirmation/new', to: 'users/confirmations#new', as: :new_user_confirmation
     get '/users/confirmation', to: 'users/confirmations#show', as: nil
+    post '/users/confirmation', to: 'users/confirmations#create', as: 'user_confirmation'
   end
 
   root 'welcome#home', as: 'home'
