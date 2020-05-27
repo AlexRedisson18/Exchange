@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const error_messages =  $.map(errors, function(value, key) {
       return `<p class="text-danger">${value}</p>`;
     }).join("");
-    return $('.modal').find('.modal-errors').html(error_messages);
+    return $('#sign-in-modal').find('.modal-errors').html(error_messages);
   });
 
   // fills .modal-errors divs in sign-up-user modal
@@ -70,16 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const openEditPasswordModal = () => {
     let searchParams = new URLSearchParams(window.location.search)
 
-    const checkToken = () => {
-      $(function () {
-        if (searchParams.has('reset_password_token')) {
-          $("#edit-password-modal").modal("show");
-        };
-      const token = searchParams.get('reset_password_token');
-      $("#reset-password-token").val(token);
-      });
+    if (searchParams.has('reset_password_token')) {
+      $("#edit-password-modal").modal("show");
     };
-    checkToken();
+    const token = searchParams.get('reset_password_token');
+    $("#reset-password-token").val(token);
   };
 
   openEditPasswordModal();
