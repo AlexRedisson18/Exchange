@@ -1,29 +1,29 @@
-window.addEventListener("load", () => {
+$(document).ready(() => {
 
   // fills .modal-errors div in sign-in-user modal
   $("form#sign-in-user")
-  .bind("ajax:success", function(event) {
+  .on("ajax:success", function(event) {
     $(this).parents('.modal').modal('hide');
     location.reload();
   })
-  .bind("ajax:error", function(event) {
+  .on("ajax:error", function(event) {
     const [errors, status, xhr] = event.detail
     const error_messages =  $.map(errors, function(value, key) {
-      return `<p class="text-danger">${value}</p>`;
+      return `<p class="text-danger mb-1">${value}</p>`;
     }).join("");
     return $('#sign-in-modal').find('.modal-errors').html(error_messages);
   });
 
   // fills .modal-errors divs in sign-up-user modal
   $("form#sign-up-user")
-    .bind("ajax:success", function(event) {
+    .on("ajax:success", function(event) {
       $(this).parents('.modal').modal('hide');
       location.reload();
     })
-    .bind("ajax:error", function(event) {
+    .on("ajax:error", function(event) {
       const errors = event.detail[0]["errors"]
       const errorList = $.map(errors, function(value, key) {
-        const errorMessage = `<p class="text-danger">${value.join(',')}</p>`
+        const errorMessage = `<p class="text-danger mb-1">${value.join(',')}</p>`
         switch(key) {
           case 'email':
             $('#sign-up-modal').find('.email-error').html(errorMessage);
@@ -47,26 +47,27 @@ window.addEventListener("load", () => {
       });
     });
 
-  // fill .modal-errors div in other modal
+  // fills .modal-errors divs in other modal
   $("form#new-password-user, form#edit-password-user, form#new-conformation-user")
-  .bind("ajax:success", function(event) {
+  .on("ajax:success", function(event) {
     $(this).parents('.modal').modal('hide');
+    window.location.replace("/");
   })
-  .bind("ajax:error", function(event) {
+  .on("ajax:error", function(event) {
     const errors = event.detail[0]["errors"]
     const error_messages =  $.map(errors, function(value, key) {
-      return `<p class="text-danger">${key} ${value}</p>`;
+      return `<p class="text-danger mb-1">${key} ${value}</p>`;
     }).join("");
     return $('.modal').find('.modal-errors').html(error_messages);
   });
 
-  // clear error and input fields data after closing the modal
+  // clears error and input fields data after closing the modal
   $('.modal').on('hide.bs.modal', function () {
     $(".modal-errors").empty();
     $(".modal-input").val('');
   });
 
-  // open modal error after click "change password link", and add token to appropriate field
+  // shows modal error after click "change password link", and add token to appropriate field
   const openEditPasswordModal = () => {
     let searchParams = new URLSearchParams(window.location.search)
 
