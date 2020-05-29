@@ -1,0 +1,37 @@
+#sign-in-modal.modal.fade[tabindex="-1" role="dialog" aria-labellebdy="sign-in-modal" aria-hidden="true"]
+  .modal-dialog.modal-dialog-centered[role="document"]
+    .modal-content.shadow
+
+      .modal-header.border-0.flex-column
+        .w-100
+          button.close[type="button" data-dismiss="modal" aria-label="Close"]
+            span#close-modal-cross[aria-hidden="true"]
+              | ×
+        .text-center.w-100
+          h5.modal-title.mt-3
+            | LOG IN
+
+      .modal-body.mx-5.px-4.py-0
+        .mb-4
+          .modal-errors.mb-4
+          = form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'sign-in-user', :'data-type' => 'json' }, remote: true) do |f|
+            .form-group
+              small.form-text
+                | Email
+              = f.email_field :email, class: "form-control modal-input"
+            .form-group
+              small.form-text
+                | Password
+              = f.password_field :password, class: "form-control modal-input"
+            - if devise_mapping.rememberable?
+              .form-group.form-check
+                input#loginCheck.form-check-input[type="checkbox"]
+                small.form-text
+                  | Remember me
+            .actions
+              = f.submit "LOG IN", id: 'modal-submit-button', class: "btn mt-1 w-100 text-light"
+        .text-center.flex-column.border-0
+          .mb-4
+            = link_to "or Sign up", "", data: { toggle: "modal", target: "#sign-up-modal", dismiss: "modal" }, class: "link"
+          .mb-4
+            = link_to "Forgot your password?", "", data: { toggle: "modal", target: "#new-password-modal", dismiss: "modal" }, class: "link"

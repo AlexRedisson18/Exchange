@@ -1,0 +1,25 @@
+#new-confirmation-modal.modal.fade[tabindex="-1" role="dialog" aria-labellebdy="new-confirmation-modal" aria-hidden="true"]
+  .modal-dialog.modal-dialog-centered[role="document"]
+    .modal-content.shadow
+
+      .modal-header.border-0.flex-column
+        .w-100
+          button.close[type="button" data-dismiss="modal" aria-label="Close"]
+            span#close-modal-cross[aria-hidden="true"]
+              | ×
+        .text-center.w-100
+          h5.modal-title.mt-3
+            | Resend confirmation instructions
+
+      .modal-body.mx-5.px-4.py-0
+        .mb-4
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :'data-type' => 'json', id: 'new-conformation-user',remote: true }) do |f|
+            .form-group
+              small.form-text
+                | Email
+              = f.email_field :email, class: "form-control modal-input", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+              .modal-errors
+            .actions
+              = f.submit "RESEND", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button'
+        .text-center.flex-column.border-0.mt-3
+          = render "users/shared/links"

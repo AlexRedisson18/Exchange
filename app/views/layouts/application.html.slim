@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title
+      | Exchange
+    meta[charset="utf-8"]
+    meta[name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .container
+      = render 'shared/navbar'
+      - if notice
+        .alert.alert-success
+          = notice
+      - if alert
+        .alert.alert-warning
+          = alert
+      = yield
+      = render 'users/sessions/new'
+      = render 'users/registrations/new'
+      = render 'users/passwords/new'
+      = render 'users/passwords/edit'
+      = render 'users/confirmations/new'
