@@ -18,7 +18,7 @@ $(document).ready(() => {
   $("form#sign-up-user")
     .on("ajax:success", function(event) {
       $(this).parents('.modal').modal('hide');
-      location.reload();
+      $("#password-confirmation-modal").modal("show");
     })
     .on("ajax:error", function(event) {
       const errors = event.detail[0]["errors"]
@@ -47,11 +47,16 @@ $(document).ready(() => {
       });
     });
 
+  $("form#new-password-user")
+  .on("ajax:success", function(event) {
+    $(this).parents('.modal').modal('hide');
+    $("#password-instructions-modal").modal("show");
+  })
+
   // fills .modal-errors divs in other modal
   $("form#new-password-user, form#edit-password-user, form#new-conformation-user")
   .on("ajax:success", function(event) {
     $(this).parents('.modal').modal('hide');
-    window.location.replace("/");
   })
   .on("ajax:error", function(event) {
     const errors = event.detail[0]["errors"]
