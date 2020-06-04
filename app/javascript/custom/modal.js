@@ -47,12 +47,6 @@ $(document).ready(() => {
       });
     });
 
-  $("form#new-password-user")
-  .on("ajax:success", function(event) {
-    $(this).parents('.modal').modal('hide');
-    $("#password-instructions-modal").modal("show");
-  })
-
   // fills .modal-errors divs in other modal
   $("form#new-password-user, form#edit-password-user, form#new-conformation-user")
   .on("ajax:success", function(event) {
@@ -65,6 +59,13 @@ $(document).ready(() => {
     }).join("");
     return $('.modal').find('.modal-errors').html(error_messages);
   });
+
+  //opens modal after ajax:succes
+  $("form#new-password-user")
+  .on("ajax:success", function(event) {
+    $(this).parents('.modal').modal('hide');
+    $("#password-instructions-modal").modal("show");
+  })
 
   // clears error and input fields data after closing the modal
   $('.modal').on('hide.bs.modal', function () {
