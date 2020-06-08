@@ -1,10 +1,11 @@
 class Lot < ApplicationRecord
   enum status: %i[active archived]
-  enum state: %i[excellent good shit]
+  enum states: %i[excellent good shit]
 
   has_many :incoming_offers, class_name: 'Offer', inverse_of: :suggested_lot
   has_many :outgoing_offers, class_name: 'Offer', inverse_of: :requested_lot
-  belongs_to :category
+  belongs_to :category, optional: true
+  belongs_to :user
 
   validates :title, presence: true, length: { minimum: 2 }
   validates :price, numericality: { greater_than_or_equal_to: 1 }

@@ -1,0 +1,32 @@
+.container-fluid.w-50.float-left.mt-3
+  - if @lot.errors.any?
+    - @lot.errors.full_messages.each do |error|
+      .alert.alert-danger
+        = error
+  = form_for @lot do |f|
+    .form-group
+      small.form-text
+        | Title
+      = f.text_field :title, class: "form-control modal-input"
+
+    .form-group
+      small.form-text
+        | Condition
+      = f.select :state, Lot.states.keys.map {|role| [role.titleize,role]}, data: { placeholder: "Categories" }
+
+    .form-group
+      small.form-text
+        | Description
+      = f.text_area :description, class: "form-control modal-input"
+
+    .form-group
+      small.form-text
+        | Share the price you'd like to sell this item
+      .input-group.mb-2.col-lg-5.px-0
+        .input-group-prepend
+          .input-group-text
+            | $
+        = f.text_field :price, class: "form-control"
+
+    .actions
+      = f.submit 'PUBLISH', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light"

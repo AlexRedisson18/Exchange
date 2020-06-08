@@ -13,6 +13,9 @@ Metrics/MethodLength:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 AllCops:
   Exclude:
     - db/schema.rb

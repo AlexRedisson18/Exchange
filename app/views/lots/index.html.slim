@@ -1,1 +1,14 @@
-
+h1
+  | All Lots
+- @lots.each do |lot|
+  .alert.alert-light
+    h3
+      = lot.title
+    p
+      = lot.description
+    p
+      = lot.state
+    p
+      = lot.price
+    p
+      = lot.user.email
