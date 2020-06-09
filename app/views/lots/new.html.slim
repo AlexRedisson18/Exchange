@@ -3,16 +3,17 @@
     - @lot.errors.full_messages.each do |error|
       .alert.alert-danger
         = error
-  = form_for @lot do |f|
+  = form_with model: @lot, local: true do |f|
     .form-group
       small.form-text
         | Title
       = f.text_field :title, class: "form-control modal-input"
+      .title-error.modal-errors
 
     .form-group
       small.form-text
         | Condition
-      = f.select :state, Lot.states.keys.map {|role| [role.titleize,role]}, data: { placeholder: "Categories" }
+      = f.select :state, Lot.states.keys, {}, { class: "form-control" }
 
     .form-group
       small.form-text
@@ -29,4 +30,4 @@
         = f.text_field :price, class: "form-control"
 
     .actions
-      = f.submit 'PUBLISH', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light"
+      = f.submit 'PUBLISH', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light col-lg-3"

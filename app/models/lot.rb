@@ -1,6 +1,6 @@
 class Lot < ApplicationRecord
   enum status: %i[active archived]
-  enum states: %i[excellent good shit]
+  enum state: %i[excellent good shit]
 
   has_many :incoming_offers, class_name: 'Offer', inverse_of: :suggested_lot
   has_many :outgoing_offers, class_name: 'Offer', inverse_of: :requested_lot

@@ -3,12 +3,10 @@ h1
 - @lots.each do |lot|
   .alert.alert-light
     h3
-      = lot.title
+      = "Title: #{lot.title}"
     p
-      = lot.description
+      = "description: #{lot.description}"
     p
-      = lot.state
+      = "State: #{lot.state}"
     p
-      = lot.price
-    p
-      = lot.user.email
+      = "Price: #{lot.price}$"
