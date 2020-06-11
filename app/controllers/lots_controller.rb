@@ -1,4 +1,5 @@
 class LotsController < ApplicationController
+  respond_to :html, :json
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_lot, only: %i[show edit update]
 
@@ -35,7 +36,12 @@ class LotsController < ApplicationController
   private
 
   def lot_params
-    params.require(:lot).permit(:title, :description, :state, :price)
+    params.require(:lot).permit(
+      :title,
+      :description,
+      :state,
+      :price
+    )
   end
 
   def set_lot
