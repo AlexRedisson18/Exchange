@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).on('turbolinks:load', function() {
 
   // fills .modal-errors div in sign-in-user modal
   $("form#sign-in-user")
