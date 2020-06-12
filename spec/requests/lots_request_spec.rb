@@ -58,9 +58,32 @@ RSpec.describe LotsController, type: :controller do
 
       subject(:make_request) { post :create, params: params }
 
-      let(:params) { { lot: { title: 'My Widget', price: 100 } } }
+      let(:params) do
+        {
+          lot: {
+            title: 'New Lot',
+            price: 200
+          }
+        }
+      end
 
       it_behaves_like 'response with code', code: 302, request_required: true
     end
   end
+
+  # describe 'GET #edit' do
+  #   subject(:make_request) { get :edit }
+
+  #   context 'when user is signed in' do
+  #     include_context 'with current user'
+
+  #     it_behaves_like 'response with code', code: 200, request_required: true
+  #   end
+
+  #   context "when user isn't signed in" do
+  #     include_context 'with current user', signed_in: false
+
+  #     it_behaves_like 'response with code', code: 302, request_required: true
+  #   end
+  # end
 end
