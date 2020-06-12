@@ -14,12 +14,17 @@ class LotsController < ApplicationController
   end
 
   def create
-    @lot = Lot.new(lot_params)
-    @lot.user = current_user
-    if @lot.save
-      redirect_to lots_path
-    else
-      render :new
+    @lot = current_user.lots.new(lot_params)
+
+    respond_to do |format|
+      if @lot.save
+        format.html { redirect_to @lot, notice: 'User was successfully created.' }
+        format.js
+        format.json { render json: @lot, status: :created, location: @lot }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @lot.errors, status: :unprocessable_entity }
+      end
     end
   end
 

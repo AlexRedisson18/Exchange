@@ -1,9 +1,6 @@
 .container-fluid.w-50.float-left.mt-3
-  - if @lot.errors.any?
-    - @lot.errors.full_messages.each do |error|
-      .alert.alert-danger
-        = error
-  = form_with model: @lot, local: true do |f|
+  .modal-errors.mb-4
+  = form_with model:  @lot, id: 'new-lot', html: { :'data-type' => 'json' } do |f|
     .form-group
       small.form-text
         | Title
