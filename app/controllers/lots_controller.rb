@@ -1,5 +1,4 @@
 class LotsController < ApplicationController
-  respond_to :html, :json
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_lot, only: %i[show edit update]
 
@@ -19,7 +18,6 @@ class LotsController < ApplicationController
     respond_to do |format|
       if @lot.save
         format.html { redirect_to @lot, notice: 'User was successfully created.' }
-        format.js
         format.json { render json: @lot, status: :created, location: @lot }
       else
         format.html { render action: 'new' }
