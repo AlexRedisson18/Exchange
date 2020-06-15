@@ -85,17 +85,4 @@ $(document).on('turbolinks:load', function() {
   };
 
   openEditPasswordModal();
-
-  $("form#new-lot")
-  .on("ajax:success", function(event) {
-  location.replace("/lots");
-  })
-  .on("ajax:error", function(event) {
-    const errors = event.detail[0]
-    // debugger
-    const error_messages =  $.map(errors, function(value, key) {
-      return `<p class="text-danger mb-1">${value}</p>`;
-    }).join("");
-    return $('#new-lot').find('.modal-errors').html(error_messages);
-  });
 });

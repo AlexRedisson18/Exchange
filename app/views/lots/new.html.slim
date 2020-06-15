@@ -1,5 +1,4 @@
 .container-fluid.w-50.float-left.mt-3
-  .modal-errors.mb-4
   = form_with model:  @lot, id: 'new-lot', html: { :'data-type' => 'json' } do |f|
     .form-group
       small.form-text
@@ -25,6 +24,7 @@
           .input-group-text
             | $
         = f.text_field :price, class: "form-control"
+      .price-error.modal-errors
 
     .actions
       = f.submit 'PUBLISH', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light col-lg-3"

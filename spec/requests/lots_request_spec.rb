@@ -10,7 +10,7 @@ RSpec.describe LotsController, type: :controller do
       it_behaves_like 'response with code', code: 200, request_required: true
     end
 
-    context "when user isn't signed in" do
+    context 'when user is NOT signed in' do
       include_context 'with current user', signed_in: false
 
       it_behaves_like 'response with code', code: 200, request_required: true
@@ -26,7 +26,7 @@ RSpec.describe LotsController, type: :controller do
       it_behaves_like 'response with code', code: 200, request_required: true
     end
 
-    context "when user isn't signed in" do
+    context 'when user is NOT signed in' do
       include_context 'with current user', signed_in: false
 
       it_behaves_like 'response with code', code: 302, request_required: true
@@ -43,7 +43,7 @@ RSpec.describe LotsController, type: :controller do
         {
           lot: {
             title: 'New Lot',
-            price: 200
+            price: 150
           }
         }
       end
@@ -53,7 +53,7 @@ RSpec.describe LotsController, type: :controller do
       end
     end
 
-    context 'when user is signed in' do
+    context 'when user is NOT signed in' do
       include_context 'with current user', signed_in: false
 
       subject(:make_request) { post :create, params: params }
@@ -62,7 +62,7 @@ RSpec.describe LotsController, type: :controller do
         {
           lot: {
             title: 'New Lot',
-            price: 200
+            price: 150
           }
         }
       end
