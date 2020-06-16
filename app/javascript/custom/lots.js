@@ -6,7 +6,6 @@ $(document).on('turbolinks:load', function() {
     })
     .on("ajax:error", function(event) {
       const errors = event.detail[0]
-      debugger
       const errorList = $.map(errors, function(value, key) {
         const errorMessage = `<p class="text-danger mb-1">${value.join(', ')}</p>`
         switch(key) {

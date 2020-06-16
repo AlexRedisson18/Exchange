@@ -1,4 +1,5 @@
 class LotsController < ApplicationController
+  respond_to :json, only: %i[create]
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_lot, only: %i[show edit update]
 
@@ -14,15 +15,10 @@ class LotsController < ApplicationController
 
   def create
     @lot = current_user.lots.new(lot_params)
-
-    respond_to do |format|
-      if @lot.save
-        format.html { redirect_to @lot, notice: 'User was successfully created.' }
-        format.json { render json: @lot, status: :created, location: @lot }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @lot.errors, status: :unprocessable_entity }
-      end
+    if @lot.save
+      render json: @lot, status: :created, location: @lot
+    else
+      render json: @lot.errors, status: :unprocessable_entity
     end
   end
 
