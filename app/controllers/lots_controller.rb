@@ -39,7 +39,9 @@ class LotsController < ApplicationController
       :title,
       :description,
       :state,
-      :price
+      :price,
+      :category_id,
+      interesting_category_ids: []
     )
   end
 

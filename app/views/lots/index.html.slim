@@ -1,12 +1,21 @@
-h1
-  | All Lots
-- @lots.each do |lot|
-  .alert.alert-light
-    h3
-      = "Title: #{lot.title}"
-    p
-      = "description: #{lot.description}"
-    p
-      = "State: #{lot.state}"
-    p
-      = "Price: #{lot.price}$"
+.container-fluid.float-left.mt-3
+  .row
+    - @lots.each do |lot|
+      .col-lg-4
+        h3
+          = "Title: #{lot.title}"
+        p
+          = "category: #{ lot.category == nil ? "" : lot.category.name }"
+        p
+          = "description: #{lot.description}"
+        p
+          = "State: #{lot.state}"
+        p
+          = "Price: #{lot.price}$"
+        p
+          | Interesting categories:
+        .container
+          ul
+            - lot.interesting_categories.each do |category|
+              li
+                = category.name

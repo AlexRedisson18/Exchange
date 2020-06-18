@@ -1,5 +1,14 @@
-.container-fluid.w-50.float-left.mt-3
-  = form_with model: @lot, id: 'new-lot', html: { :'data-type' => 'json' } do |f|
+.container-fluid.float-left.mt-3
+  = form_with model: @lot, id: 'new-lot', html: { class: "col-lg-7",:'data-type' => 'json' } do |f|
+    .form-text-big
+      | DESCRIBE THE THING YOU'D LIKE TO EXCHANGE
+    .form-group
+      small.form-text
+        | Select category of new item:
+      .container.mt-3
+        .row
+          = f.collection_radio_buttons :category_id, Category.all, :id, :name do |b|
+            = b.label(class: "col-lg-4 form-text buttons-container") { b.radio_button + '<span class="checkmark"></span>'.html_safe + b.text }
     .form-group
       small.form-text
         | Title
@@ -16,8 +25,18 @@
         | Description
       = f.text_area :description, class: "form-control modal-input"
 
+    .form-text-big
+      | SELECT CATEGORIES YOU ARE INTERESTED IN
     .form-group
-      small.form-text
+      .container.mt-3
+         .row
+            = f.collection_check_boxes :interesting_category_ids, Category.all, :id, :name, include_hidden: false do |b|
+              = b.label(class: "col-lg-4 form-text buttons-container") { b.check_box + '<span class="checkmark"></span>'.html_safe + b.text }
+
+    .form-text-big
+      | ARE YOU INTERESTED IN SELLING YOUR ITEM?
+    .form-group
+      small.form-text.mb-2
         | Share the price you'd like to sell this item
       .input-group.mb-2.col-lg-5.px-0
         .input-group-prepend

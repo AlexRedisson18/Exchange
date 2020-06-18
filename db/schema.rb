@@ -10,15 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_083056) do
+ActiveRecord::Schema.define(version: 2020_06_18_084818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "lot_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["lot_id"], name: "index_categories_on_lot_id"
+  end
+
+  create_table "categories_lots", id: false, force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "lot_id", null: false
+    t.bigint "interesting_category_id"
+    t.bigint "interested_lot_id"
+    t.index ["interested_lot_id"], name: "index_categories_lots_on_interested_lot_id"
+    t.index ["interesting_category_id"], name: "index_categories_lots_on_interesting_category_id"
   end
 
   create_table "lots", force: :cascade do |t|
