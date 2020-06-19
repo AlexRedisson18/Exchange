@@ -11,8 +11,6 @@ RSpec.describe LotsController, type: :controller do
     end
 
     context 'when user is NOT signed in' do
-      include_context 'with current user', signed_in: false
-
       it_behaves_like 'response with code', code: 200, request_required: true
     end
   end
@@ -27,8 +25,6 @@ RSpec.describe LotsController, type: :controller do
     end
 
     context 'when user is NOT signed in' do
-      include_context 'with current user', signed_in: false
-
       it_behaves_like 'response with code', code: 302, request_required: true
     end
   end
@@ -54,8 +50,6 @@ RSpec.describe LotsController, type: :controller do
     end
 
     context 'when user is NOT signed in' do
-      include_context 'with current user', signed_in: false
-
       subject(:make_request) { post :create, params: params }
 
       let(:params) do
