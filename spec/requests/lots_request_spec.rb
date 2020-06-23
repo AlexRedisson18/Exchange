@@ -29,17 +29,19 @@ RSpec.describe LotsController, type: :controller do
     end
   end
 
-  describe 'GET #create' do
+  describe 'POST #create' do
     context 'when user is signed in' do
       include_context 'with current user'
 
       subject(:make_request) { post :create, params: params }
 
+      @category = create(:category)
       let(:params) do
         {
           lot: {
             title: 'New Lot',
-            price: 150
+            price: 150,
+            category: @category
           }
         }
       end
@@ -64,20 +66,4 @@ RSpec.describe LotsController, type: :controller do
       it_behaves_like 'response with code', code: 302, request_required: true
     end
   end
-
-  # describe 'GET #edit' do
-  #   subject(:make_request) { get :edit }
-
-  #   context 'when user is signed in' do
-  #     include_context 'with current user'
-
-  #     it_behaves_like 'response with code', code: 200, request_required: true
-  #   end
-
-  #   context "when user isn't signed in" do
-  #     include_context 'with current user', signed_in: false
-
-  #     it_behaves_like 'response with code', code: 302, request_required: true
-  #   end
-  # end
 end

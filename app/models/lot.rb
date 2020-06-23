@@ -10,6 +10,7 @@ class Lot < ApplicationRecord
 
   validates :title, presence: true, length: { minimum: 2 }
   validates :price, numericality: { greater_than_or_equal_to: 1 }
+  validates :category, presence: true
 end
 
 # t.string :title, null: false
