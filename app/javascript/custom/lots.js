@@ -7,13 +7,16 @@ $(document).on('turbolinks:load', function() {
     .on("ajax:error", function(event) {
       const errors = event.detail[0]
       const errorList = $.map(errors, function(value, key) {
-        const errorMessage = `<p class="text-danger mb-1">${value.join(', ')}</p>`
+        const errorMessage = `<p class="text-danger mb-1">${value.join("\n")}</p>`
         switch(key) {
           case 'title':
             $('#new-lot').find('.title-error').html(errorMessage);
             break;
           case 'price':
             $('#new-lot').find('.price-error').html(errorMessage);
+            break;
+          case 'interesting_categories':
+            $('#new-lot').find('.interesting-categories-errors').html(errorMessage);
             break;
           default:
             $('#new-lot').find('.modal-errors').html(errorMessage);
