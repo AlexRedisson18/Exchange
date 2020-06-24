@@ -11,6 +11,7 @@ require("jquery")
 require("custom/modal")
 require("custom/lots")
 
+import 'bootstrap-select'
 import 'bootstrap'
 import '../stylesheets/application'
 
