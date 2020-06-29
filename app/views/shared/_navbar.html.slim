@@ -1,8 +1,8 @@
-nav.d-flex.flex-column.flex-md-row.align-items-center.p-3.bg-white.border-0.sticky-top
+nav.d-flex.flex-column.flex-md-row.align-items-center.p-3.bg-white.border-bottom.sticky-top
   = link_to "SHIT EXCHANGE", home_path, class: 'my-0 mr-md-auto font-weight-normal link'
   form.form-inline
     input.form-control.mr-2[type="search" placeholder="Search" aria-label="Search"]
-    = link_to "ADD LISTING", home_path, class: 'btn mx-2 text-light', id: 'modal-submit-button'
+    = link_to "ADD LISTING", new_lot_path, class: 'btn mx-2 text-light', id: 'modal-submit-button'
     - if user_signed_in?
       = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
     - else

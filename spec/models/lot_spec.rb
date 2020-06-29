@@ -4,6 +4,7 @@ RSpec.describe Lot, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:incoming_offers).class_name('Offer').inverse_of(:suggested_lot) }
     it { is_expected.to have_many(:outgoing_offers).class_name('Offer').inverse_of(:requested_lot) }
+    it { is_expected.to belong_to(:user) }
   end
 
   describe 'validations' do

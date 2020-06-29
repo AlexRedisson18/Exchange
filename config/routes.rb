@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'welcome/home'
 
   devise_for :users, skip: :all, controllers: {
     sessions: 'users/sessions',
@@ -26,7 +25,7 @@ Rails.application.routes.draw do
     post '/users/confirmation', to: 'users/confirmations#create', as: 'user_confirmation'
   end
 
-  root 'welcome#home', as: 'home'
+  root 'lots#index', as: 'home'
 
   resources :lots
 end

@@ -34,3 +34,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+temp.html.slim
+public/uploads
