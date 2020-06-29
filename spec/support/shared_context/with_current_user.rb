@@ -1,5 +1,5 @@
-RSpec.shared_context 'with current user' do |signed_in: true|
+RSpec.shared_context 'with current user' do
   let(:current_user) { create(:user) }
 
-  before { sign_in current_user } if signed_in
+  before { sign_in current_user }
 end

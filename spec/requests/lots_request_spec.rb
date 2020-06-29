@@ -30,25 +30,17 @@ RSpec.describe LotsController, type: :controller do
   end
 
   describe 'POST #create' do
+    subject(:make_request) { post :create, params: { lot: lot } }
+    let(:category) { create(:category) }
+    let(:lot) { attributes_for(:lot, category_id: category) }
+
     context 'when user is signed in' do
       include_context 'with current user'
-
-      subject(:make_request) { post :create, params: { lot: lot } }
-
-      let(:category) { create(:category) }
-      let(:lot) { attributes_for(:lot, category_id: category) }
-
       it 'creates new lot' do
         expect { make_request }.to change(Lot, :count).from(0).to(1)
       end
     end
-
     context 'when user is NOT signed in' do
-      subject(:make_request) { post :create, params: { lot: lot } }
-
-      let(:category) { create(:category) }
-      let(:lot) { attributes_for(:lot, category_id: category) }
-
       it_behaves_like 'response with code', code: 302
     end
   end
