@@ -9,7 +9,7 @@ class Lot < ApplicationRecord
   belongs_to :user
 
   validates :title, presence: true, length: { minimum: 2 }
-  validates :category, presence: true
+  validates :category, presence: { message: 'you have to choose category!' }
 
   with_options if: :no_categories? do
     validates :price, numericality: { greater_than_or_equal_to: 1 }
@@ -27,4 +27,7 @@ class Lot < ApplicationRecord
   def no_categories?
     interesting_categories.empty?
   end
+
+  mount_uploader :image, ImageUploader
+  mount_uploaders :images, ImageUploader
 end

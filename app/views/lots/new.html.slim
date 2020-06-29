@@ -1,10 +1,11 @@
 .container-fluid.float-left.mt-3
-  = form_with model: @lot, id: 'new-lot', html: { class: "col-lg-7",:'data-type' => 'json' } do |f|
+  = form_with model: @lot, id: 'new-lot', html: { class: "col-lg-7",:'data-type' => 'json', multipart: true  } do |f|
     .form-text-big
       | DESCRIBE THE THING YOU'D LIKE TO EXCHANGE
     .form-group
       small.form-text
         | Select category of new item:
+      .category-errors.modal-errors
       .container.mt-3
         .row
           = f.collection_radio_buttons :category_id, Category.all, :id, :name do |b|
@@ -45,6 +46,27 @@
             | $
         = f.text_field :price, class: "form-control"
       .price-error.modal-errors
+
+    .form-text-big
+      | UPLOAD IMAGE
+
+    .form-group
+    - if @lot.image?
+      = image_tag @lot.image.thumb.url
+        .p
+          = label_tag :remove_image do
+            f.check_box :remove_image
+
+
+    / .form-group
+    /   = f.file_field :image
+    /   = f.hidden_field :image_cache
+
+    .form-group
+      - @lot.images.each do |image|
+        = hidden_field :lot, :images, multiple: true, value: lot.identifier
+      = f.file_field :images, multiple: true
+
 
     .actions
       = f.submit 'PUBLISH', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light col-lg-3"

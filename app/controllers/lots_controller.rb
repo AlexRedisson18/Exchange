@@ -1,5 +1,5 @@
 class LotsController < ApplicationController
-  respond_to :json, only: %i[create]
+  # respond_to :json, only: %i[create]
   before_action :authenticate_user!, except: %i[show index]
   before_action :set_lot, only: %i[show edit update]
 
@@ -41,7 +41,11 @@ class LotsController < ApplicationController
       :state,
       :price,
       :category_id,
-      interesting_category_ids: []
+      { interesting_category_ids: [] },
+      :image,
+      { images: [] },
+      :image_cache,
+      :remove_image
     )
   end
 

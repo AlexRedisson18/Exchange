@@ -3,7 +3,7 @@ class CreateLots < ActiveRecord::Migration[6.0]
     create_table :lots do |t|
       t.string :title, null: false
       t.string :description
-      t.string :image
+      t.string :image, null: false
       t.integer :status, default: 0
       t.integer :state
       t.integer :price

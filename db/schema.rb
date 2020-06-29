@@ -17,10 +17,8 @@ ActiveRecord::Schema.define(version: 2020_06_18_084818) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "lot_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["lot_id"], name: "index_categories_on_lot_id"
   end
 
   create_table "categories_lots", id: false, force: :cascade do |t|
@@ -35,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_084818) do
   create_table "lots", force: :cascade do |t|
     t.string "title", null: false
     t.string "description"
-    t.string "image"
+    t.string "image", null: false
     t.integer "status", default: 0
     t.integer "state"
     t.integer "price"
