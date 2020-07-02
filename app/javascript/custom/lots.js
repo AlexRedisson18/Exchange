@@ -6,6 +6,7 @@ $(document).on('turbolinks:load', function() {
     location.replace("/lots");
     })
     .on("ajax:error", function(event) {
+      $(".modal-errors").empty();
       const errors = event.detail[0]
       const errorList = $.map(errors, function(value, key) {
         const errorMessage = `<p class="text-danger mb-1">${value.join('<br>')}</p>`
@@ -18,6 +19,9 @@ $(document).on('turbolinks:load', function() {
             break;
           case 'interesting_categories':
             $('#new-lot').find('.interesting-categories-errors').html(errorMessage);
+            break;
+          case 'category':
+            $('#new-lot').find('.category-errors').html(errorMessage);
             break;
           default:
             $('#new-lot').find('.modal-errors').html(errorMessage);
