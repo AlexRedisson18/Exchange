@@ -51,18 +51,6 @@
       | UPLOAD IMAGE
 
     .form-group
-    - if @lot.image?
-      = image_tag @lot.image.thumb.url
-        .p
-          = label_tag :remove_image do
-            f.check_box :remove_image
-
-
-    / .form-group
-    /   = f.file_field :image
-    /   = f.hidden_field :image_cache
-
-    .form-group
       - @lot.images.each do |image|
         = hidden_field :lot, :images, multiple: true, value: lot.identifier
       = f.file_field :images, multiple: true
