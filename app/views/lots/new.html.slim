@@ -10,6 +10,7 @@
         .row
           = f.collection_radio_buttons :category_id, Category.all, :id, :name do |b|
             = b.label(class: "col-lg-4 form-text buttons-container") { b.radio_button + '<span class="checkmark"></span>'.html_safe + b.text }
+      .category-errors.modal-errors
     .form-group
       small.form-text
         | Title
@@ -28,12 +29,12 @@
 
     .form-text-big
       | SELECT CATEGORIES YOU ARE INTERESTED IN
-    .interesting-categories-errors.modal-errors
     .form-group
       .container.mt-3
          .row
             = f.collection_check_boxes :interesting_category_ids, Category.all, :id, :name, include_hidden: false do |b|
               = b.label(class: "col-lg-4 form-text buttons-container") { b.check_box + '<span class="checkmark"></span>'.html_safe + b.text }
+      .interesting-categories-errors.modal-errors
 
     .form-text-big
       | ARE YOU INTERESTED IN SELLING YOUR ITEM?

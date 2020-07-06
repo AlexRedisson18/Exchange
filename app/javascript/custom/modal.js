@@ -7,6 +7,7 @@ $(document).on('turbolinks:load', function() {
       location.reload();
     })
     .on("ajax:error", function(event) {
+      $(".modal-errors").empty();
       const [errors, status, xhr] = event.detail
       const error_messages =  $.map(errors, function(value, key) {
         return `<p class="text-danger mb-1">${value}</p>`;
@@ -21,6 +22,7 @@ $(document).on('turbolinks:load', function() {
       $("#password-confirmation-modal").modal("show");
     })
     .on("ajax:error", function(event) {
+      $(".modal-errors").empty();
       const errors = event.detail[0]["errors"]
       const errorList = $.map(errors, function(value, key) {
         const errorMessage = `<p class="text-danger mb-1">${value.join(',')}</p>`
@@ -53,6 +55,7 @@ $(document).on('turbolinks:load', function() {
       $(this).parents('.modal').modal('hide');
     })
     .on("ajax:error", function(event) {
+      $(".modal-errors").empty();
       const errors = event.detail[0]["errors"]
       const error_messages =  $.map(errors, function(value, key) {
         return `<p class="text-danger mb-1">${key} ${value}</p>`;

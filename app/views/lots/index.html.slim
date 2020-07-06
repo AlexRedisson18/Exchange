@@ -12,9 +12,12 @@
           = "description: #{lot.description}"
         p
           = "State: #{lot.state}"
-        p
-          = "Price: #{lot.price}$" if lot.price?
-        - unless lot.interesting_categories.empty?
+
+        - if lot.price
+          p
+            = "Price: #{lot.price}$"
+        - if lot.interesting_categories.any?
+
           p
             | Interesting categories:
           .container
@@ -22,4 +25,6 @@
               - lot.interesting_categories.each do |category|
                 li
                   = category.name
+
         = link_to "Show", lot_path(lot)
+
