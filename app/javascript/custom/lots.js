@@ -6,7 +6,7 @@ $(document).on('turbolinks:load', function() {
     location.replace("/lots");
     })
     .on("ajax:error", function(event) {
-      $(".modal-errors").empty();
+      $('#new-lot').find('.modal-errors').empty();
       const errors = event.detail[0]
       const errorList = $.map(errors, function(value, key) {
         const errorMessage = `<p class="text-danger mb-1">${value.join('<br>')}</p>`

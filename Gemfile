@@ -9,6 +9,9 @@ gem 'pg'
 gem 'pry-rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'slim-rails'
+gem 'carrierwave', '~> 2.0'
+gem 'mini_magick'
+gem 'fog-aws'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
@@ -34,6 +37,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 4.0.0'
