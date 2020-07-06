@@ -40,10 +40,10 @@ class LotsController < ApplicationController
       :state,
       :price,
       :category_id,
-      { interesting_category_ids: [] },
       :image,
-      { images: [] },
-      :image_cache
+      :image_cache,
+      interesting_category_ids: [],
+      images: []
     )
   end
 

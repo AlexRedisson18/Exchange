@@ -11,7 +11,7 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'slim-rails'
 gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
-gem "fog-aws"
+gem 'fog-aws'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
