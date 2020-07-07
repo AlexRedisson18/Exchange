@@ -10,7 +10,6 @@
         .row
           = f.collection_radio_buttons :category_id, Category.all, :id, :name do |b|
             = b.label(class: "col-lg-4 form-text buttons-container") { b.radio_button + '<span class="checkmark"></span>'.html_safe + b.text }
-      .category-errors.modal-errors
     .form-group
       small.form-text
         | Title
