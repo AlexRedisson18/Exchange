@@ -1,0 +1,41 @@
+// .lot-image-container:hover
+//   .lot-action-buttons
+//     display: block
+//   .card-img-top
+//     opacity: 0.4
+.lot-image-container:hover
+  .lot-action-buttons
+    display: flex
+
+.lot-action-buttons
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  z-index: 100
+  display: none
+  background-color: rgba(255, 255, 255, 0.7)
+  align-items: center
+  justify-content: space-around
+
+.lot-action-button
+  border: 2px solid #005164
+  &:hover
+    background-color: rgba(255, 255, 255, 0.5)
+    box-shadow: 0 0 50px #FFF
+
+.int-categories-box
+  position: relative
+  top: 7px
+  max-height: 25px
+  max-width: 150px
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.add-listing-button
+  height: 354px
+  display: flex
+  align-items: center
+  justify-content: center

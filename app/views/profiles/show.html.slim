@@ -1,0 +1,29 @@
+.container-fluid.mt-3
+  .row
+    .col-lg-4
+      .card.border-0.rounded.shadow-sm.mb-3.px-0.add-listing-button
+        = link_to "+ ADD LISTING", new_lot_path, class: 'link'
+    - @profile.lots.each do |lot|
+      .col-lg-4
+        .card.border-0.rounded.shadow-sm.mb-3.px-0
+          .lot-image-container.position-relative
+            .lot-action-buttons.
+              = link_to "show", lot_path(lot), class: 'lot-action-button ml-3 link px-3 font-weight-bold'
+              = link_to "unpublish","", class: 'lot-action-button link px-3 font-weight-bold'
+              = link_to "delete", lot_path(lot), method: :delete, class: 'lot-action-button mr-3 link px-3 font-weight-bold'
+            = image_tag(lot.images[0].thumb.url, class: 'card-img-top rounded-top') if lot.images?
+          .card-body
+            h5.card-title.font-weight-bold
+              = link_to lot.title, lot_path(lot), class: "link"
+            p.card-text.form-text.mb-1
+              | WANTS TO EXCHANGE FOR:
+            .card-text.d-inline
+              .d-inline-block.link.int-categories-box
+                - if lot.interesting_categories.any?
+                  = lot.interesting_categories.map(&:name).join(", ")
+              .d-inline.form-text
+                - if lot.interesting_categories.any? && lot.price?
+                  = " or "
+              .d-inline.form-text.font-weight-bold
+                - if lot.price?
+                  = "$#{lot.price}"
