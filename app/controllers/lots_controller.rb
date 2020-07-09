@@ -1,6 +1,6 @@
 class LotsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
-  before_action :set_lot, only: %i[show edit update]
+  before_action :set_lot, only: %i[show edit update destroy]
 
   def index
     @lots = Lot.order('created_at DESC')
@@ -15,7 +15,7 @@ class LotsController < ApplicationController
   def create
     @lot = current_user.lots.new(lot_params)
     if @lot.save
-      render json: @lot, status: :created, location: @lot
+      render json: @lot, status: :created, location: @profile
     else
       render json: @lot.errors, status: :unprocessable_entity
     end
@@ -29,6 +29,11 @@ class LotsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @lot.destroy
+    redirect_to profile_path
   end
 
   private

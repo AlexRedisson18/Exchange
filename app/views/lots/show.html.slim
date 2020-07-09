@@ -3,7 +3,7 @@
   /   = image_tag(@lot.image.thumb.url, alt: 'Image') if @lot.image?
   p
     - if @lot.images?
-      ul
+      li
         - @lot.images.each do |image|
           li
             = link_to(image_tag(image.url, alt: 'Image'), image.url, target: '_blank')
