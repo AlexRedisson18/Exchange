@@ -5,7 +5,7 @@
         h3
           = "Title: #{lot.title}"
         p
-          = image_tag(lot.images[0].thumb.url) if lot.images?
+          = image_tag(lot.images[0].url) if lot.images?
         p
           = "category: #{ lot.category == nil ? "" : lot.category.name }"
         p

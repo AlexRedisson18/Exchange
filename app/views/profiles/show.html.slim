@@ -1,17 +1,50 @@
 .container-fluid.mt-3
+  .user-form
+    = form_with model: @profile, method: :put, url: profile_path, html: { class: "col-lg-7 d-flex flex-row mb-4", :'data-type' => 'json', multipart: true } do |f|
+      .avatar-upload-container.mr-3
+        - if @profile.avatar?
+          = f.file_field :avatar, class: "avatar-input"
+          = f.label :avatar
+            .avatar-hover
+              span.link
+                | update photo
+            = image_tag(@profile.avatar.thumb.url, class: 'avatar-upload-image')
+        - else
+          = f.file_field :avatar, class: "avatar-input"
+          .avatar-hover
+            span.link
+              | add photo
+          = f.label :avatar
+            = image_tag("avatars/default_avatar.png", class: "avatar-upload-image")
+
+      .other-user-data
+        .form-group
+          = f.text_field :name, class: "form-control profile-input"
+        .form-group
+          = f.text_field :phone_number, class: "form-control profile-input"
+        p
+          = @profile.email
+        = f.submit "SAVE", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button'
+        / = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
+    end
+
   .row
     .col-lg-4
-      .card.border-0.rounded.shadow-sm.mb-3.px-0.add-listing-button
-        = link_to "+ ADD LISTING", new_lot_path, class: 'link'
+      .card.border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
+        = link_to new_lot_path, class: 'add-listing-div-link' do
+          .span.link.font-weight-bold.add-listing-span
+            | + ADD LISTTING
+        end
+
     - @profile.lots.each do |lot|
       .col-lg-4
-        .card.border-0.rounded.shadow-sm.mb-3.px-0
-          .lot-image-container.position-relative
+        .card.border-0.rounded.shadow-sm.mb-3
+          .lot-image-container
             .lot-action-buttons.
               = link_to "show", lot_path(lot), class: 'lot-action-button ml-3 link px-3 font-weight-bold'
               = link_to "unpublish","", class: 'lot-action-button link px-3 font-weight-bold'
               = link_to "delete", lot_path(lot), method: :delete, class: 'lot-action-button mr-3 link px-3 font-weight-bold'
-            = image_tag(lot.images[0].thumb.url, class: 'card-img-top rounded-top') if lot.images?
+            = image_tag(lot.images[0].url, class: 'card-img-top') if lot.images?
           .card-body
             h5.card-title.font-weight-bold
               = link_to lot.title, lot_path(lot), class: "link"

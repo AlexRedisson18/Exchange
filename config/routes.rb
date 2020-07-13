@@ -28,5 +28,5 @@ Rails.application.routes.draw do
   root 'lots#index', as: 'home'
 
   resources :lots
-  resource :profile, only: [:show]
+  resource :profile, only: [:show, :update]
 end

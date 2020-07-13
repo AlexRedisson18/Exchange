@@ -15,7 +15,7 @@ class LotsController < ApplicationController
   def create
     @lot = current_user.lots.new(lot_params)
     if @lot.save
-      render json: @lot, status: :created, location: @profile
+      render json: @lot, status: :created, location: @lot
     else
       render json: @lot.errors, status: :unprocessable_entity
     end

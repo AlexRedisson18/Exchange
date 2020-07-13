@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-7.times do
-  FactoryBot.create(:category)
-end
+categories = %w[laptops phones gadgets clothes food cars shoes furniture]
+
+categories.map { |category| Category.create(name: category) }
