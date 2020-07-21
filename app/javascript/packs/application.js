@@ -10,6 +10,8 @@ require("channels")
 require("jquery")
 require("custom/modal")
 require("custom/lots")
+require("custom/profile")
+require("custom/ays")
 
 import 'bootstrap-select'
 import 'bootstrap'

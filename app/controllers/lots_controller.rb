@@ -45,7 +45,6 @@ class LotsController < ApplicationController
       :state,
       :price,
       :category_id,
-      :image_cache,
       interesting_category_ids: [],
       images: []
     )

@@ -8,4 +8,4 @@
 
 categories = %w[laptops phones gadgets clothes food cars shoes furniture]
 
-categories.map { |category| Category.create(name: category) }
+categories.each { |category| Category.create(name: category) }

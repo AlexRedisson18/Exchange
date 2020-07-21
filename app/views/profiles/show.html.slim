@@ -1,6 +1,6 @@
 .container-fluid.mt-3
   .user-form
-    = form_with model: @profile, method: :put, url: profile_path, html: { class: "col-lg-7 d-flex flex-row mb-4", :'data-type' => 'json', multipart: true } do |f|
+    = form_with model: @profile, method: :put, url: profile_path, html: { id: 'profile-form', class: "col-lg-7 d-flex flex-row mb-4", :'data-type' => 'json', multipart: true } do |f|
       .avatar-upload-container.mr-3
         - if @profile.avatar?
           = f.file_field :avatar, class: "avatar-input"
@@ -19,12 +19,13 @@
 
       .other-user-data
         .form-group
-          = f.text_field :name, class: "form-control profile-input"
+          = f.text_field :name, class: "form-control profile-input", placeholder: 'Name'
         .form-group
-          = f.text_field :phone_number, class: "form-control profile-input"
-        p
+          = f.text_field :phone_number, class: "form-control profile-input", placeholder: 'Phone number'
+        .form-group.profile-input
           = @profile.email
-        = f.submit "SAVE", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button'
+        .form-group.profile-input
+          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light profile-submit", id: 'modal-submit-button', disabled: true
         / = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
     end
 
@@ -52,8 +53,7 @@
               | WANTS TO EXCHANGE FOR:
             .card-text.d-inline
               .d-inline-block.link.int-categories-box
-                - if lot.interesting_categories.any?
-                  = lot.interesting_categories.map(&:name).join(", ")
+                = lot.interesting_categories.map(&:name).join(", ")
               .d-inline.form-text
                 - if lot.interesting_categories.any? && lot.price?
                   = " or "
