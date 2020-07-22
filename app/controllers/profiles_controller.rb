@@ -2,7 +2,9 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile, only: %i[show update]
 
-  def show; end
+  def show
+    @lots = @profile.lots
+  end
 
   def update
     if @profile.update(profile_params)

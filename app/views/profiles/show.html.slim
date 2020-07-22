@@ -2,20 +2,18 @@
   .user-form
     = form_with model: @profile, method: :put, url: profile_path, html: { id: 'profile-form', class: "col-lg-7 d-flex flex-row mb-4", :'data-type' => 'json', multipart: true } do |f|
       .avatar-upload-container.mr-3
-        - if @profile.avatar?
-          = f.file_field :avatar, class: "avatar-input"
-          = f.label :avatar
-            .avatar-hover
-              span.link
-                | update photo
-            = image_tag(@profile.avatar.thumb.url, class: 'avatar-upload-image')
-        - else
-          = f.file_field :avatar, class: "avatar-input"
-          .avatar-hover
-            span.link
-              | add photo
-          = f.label :avatar
-            = image_tag("avatars/default_avatar.png", class: "avatar-upload-image")
+        = f.file_field :avatar, class: "avatar-input"
+        = f.label :avatar
+            - if @profile.avatar?
+              .avatar-hover
+                span.link
+                  | update photo
+              = image_tag(@profile.avatar.thumb.url, class: 'avatar-upload-image')
+            - else
+              .avatar-hover
+                span.link
+                  | add photo
+              = image_tag("avatars/default_avatar.png", class: "avatar-upload-image")
 
       .other-user-data
         .form-group
@@ -37,26 +35,4 @@
             | + ADD LISTTING
         end
 
-    - @profile.lots.each do |lot|
-      .col-lg-4
-        .card.border-0.rounded.shadow-sm.mb-3
-          .lot-image-container
-            .lot-action-buttons.
-              = link_to "show", lot_path(lot), class: 'lot-action-button ml-3 link px-3 font-weight-bold'
-              = link_to "unpublish","", class: 'lot-action-button link px-3 font-weight-bold'
-              = link_to "delete", lot_path(lot), method: :delete, class: 'lot-action-button mr-3 link px-3 font-weight-bold'
-            = image_tag(lot.images[0].url, class: 'card-img-top') if lot.images?
-          .card-body
-            h5.card-title.font-weight-bold
-              = link_to lot.title, lot_path(lot), class: "link"
-            p.card-text.form-text.mb-1
-              | WANTS TO EXCHANGE FOR:
-            .card-text.d-inline
-              .d-inline-block.link.int-categories-box
-                = lot.interesting_categories.map(&:name).join(", ")
-              .d-inline.form-text
-                - if lot.interesting_categories.any? && lot.price?
-                  = " or "
-              .d-inline.form-text.font-weight-bold
-                - if lot.price?
-                  = "$#{lot.price}"
+    = render 'profiles/lots'
