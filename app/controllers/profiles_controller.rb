@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[show update]
 
   def show
-    @lots = @profile.lots
+    @lots = @profile.lots.order('created_at DESC')
   end
 
   def update
