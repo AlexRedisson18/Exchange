@@ -1,9 +1,15 @@
 nav.d-flex.flex-column.flex-md-row.align-items-center.p-3.bg-white.border-bottom.sticky-top
-  = link_to "SHIT EXCHANGE", home_path, class: 'my-0 mr-md-auto font-weight-normal link'
+  = link_to image_tag("logos/logo.png", class: 'mr-3 nav-logo'), home_path
+  .form-text-big.my-0.mr-md-auto
+      | SHIT EXCHANGE
   form.form-inline
     input.form-control.mr-2[type="search" placeholder="Search" aria-label="Search"]
     = link_to "ADD LISTING", new_lot_path, class: 'btn mx-2 text-light', id: 'modal-submit-button'
     - if user_signed_in?
-      = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
+      - if current_user.avatar?
+        = link_to image_tag(current_user.avatar.small_thumb.url, class: 'nav-avatar'), profile_path
+      - else
+        = link_to image_tag("avatars/default_avatar.png", class: 'nav-default-avatar'), profile_path
+
     - else
       = link_to "LOGIN", "", class: 'link', data: { toggle: "modal", target: "#sign-in-modal" }

@@ -1,6 +1,6 @@
 class LotsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
-  before_action :set_lot, only: %i[show edit update]
+  before_action :set_lot, only: %i[show edit update destroy]
 
   def index
     @lots = Lot.order('created_at DESC')
@@ -31,6 +31,11 @@ class LotsController < ApplicationController
     end
   end
 
+  def destroy
+    @lot.destroy
+    redirect_to profile_path
+  end
+
   private
 
   def lot_params
@@ -40,8 +45,6 @@ class LotsController < ApplicationController
       :state,
       :price,
       :category_id,
-      :image,
-      :image_cache,
       interesting_category_ids: [],
       images: []
     )

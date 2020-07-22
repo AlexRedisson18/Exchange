@@ -44,4 +44,17 @@ RSpec.describe LotsController, type: :controller do
       it_behaves_like 'response with code', code: 302
     end
   end
+
+  describe '#destroy' do
+    subject(:make_request) { delete :destroy, params: { id: lot.id } }
+    let(:category) { create(:category) }
+    let!(:lot) { create(:lot, category_id: category.id, user: current_user) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'delete lot' do
+        expect { make_request }.to change(Lot, :count).from(1).to(0)
+      end
+    end
+  end
 end

@@ -1,0 +1,38 @@
+.container-fluid.mt-3
+  .user-form
+    = form_with model: @profile, method: :put, url: profile_path, html: { id: 'profile-form', class: "col-lg-7 d-flex flex-row mb-4", :'data-type' => 'json', multipart: true } do |f|
+      .avatar-upload-container.mr-3
+        = f.file_field :avatar, class: "avatar-input"
+        = f.label :avatar
+            - if @profile.avatar?
+              .avatar-hover
+                span.link
+                  | update photo
+              = image_tag(@profile.avatar.thumb.url, class: 'avatar-upload-image')
+            - else
+              .avatar-hover
+                span.link
+                  | add photo
+              = image_tag("avatars/default_avatar.png", class: "avatar-upload-image")
+
+      .other-user-data
+        .form-group
+          = f.text_field :name, class: "form-control profile-input", placeholder: 'Name'
+        .form-group
+          = f.text_field :phone_number, class: "form-control profile-input", placeholder: 'Phone number'
+        .form-group.profile-input
+          = @profile.email
+        .form-group.profile-input
+          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light profile-submit", id: 'modal-submit-button', disabled: true
+        / = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
+    end
+
+  .row
+    .col-lg-4
+      .card.border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
+        = link_to new_lot_path, class: 'add-listing-div-link' do
+          .span.link.font-weight-bold.add-listing-span
+            | + ADD LISTTING
+        end
+
+    = render 'profiles/lots'
