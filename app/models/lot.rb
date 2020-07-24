@@ -1,5 +1,5 @@
 class Lot < ApplicationRecord
-  enum status: %i[active archived]
+  enum status: %i[published unpublished]
   enum state: %i[excellent good shit]
 
   mount_uploaders :images, ImageUploader
@@ -18,6 +18,9 @@ class Lot < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 1 }, if: :some_price?
   validates :interesting_categories, presence: { message: 'choose one or more category, or specify a price' },
                                      if: :no_price?
+
+  scope :published, -> { where(status: 'published') }
+  scope :unpublished, -> { where(status: 'unpublished') }
 
   def no_price?
     price.nil?

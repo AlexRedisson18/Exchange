@@ -1,0 +1,57 @@
+.container-fluid.float-left.mt-3
+  = form_with model: @lot, id: 'new-lot', html: { class: "col-lg-7",:'data-type' => 'json', multipart: true  } do |f|
+    .form-text-big
+      | DESCRIBE THE THING YOU'D LIKE TO EXCHANGE
+    .form-group
+      small.form-text
+        | Select category of new item:
+      .category-errors.modal-errors
+      .container.mt-3
+        .row
+          = f.collection_radio_buttons :category_id, Category.all, :id, :name do |b|
+            = b.label(class: "col-lg-4 form-text buttons-container") { b.radio_button + '<span class="checkmark"></span>'.html_safe + b.text }
+    .form-group
+      small.form-text
+        | Title
+      = f.text_field :title, class: "form-control modal-input"
+      .title-error.modal-errors
+
+    .form-group
+      small.form-text
+        | Condition
+      = f.select :state, Lot.states.keys, {}, { class: "my-select" }
+
+    .form-group
+      small.form-text
+        | Description
+      = f.text_area :description, class: "form-control modal-input"
+
+    .form-text-big
+      | SELECT CATEGORIES YOU ARE INTERESTED IN
+    .form-group
+      .container.mt-3
+         .row
+            = f.collection_check_boxes :interesting_category_ids, Category.all, :id, :name, include_hidden: false do |b|
+              = b.label(class: "col-lg-4 form-text buttons-container") { b.check_box + '<span class="checkmark"></span>'.html_safe + b.text }
+      .interesting-categories-errors.modal-errors
+
+    .form-text-big
+      | ARE YOU INTERESTED IN SELLING YOUR ITEM?
+    .form-group
+      small.form-text.mb-2
+        | Share the price you'd like to sell this item
+      .input-group.mb-2.col-lg-5.px-0
+        .input-group-prepend
+          .input-group-text
+            | $
+        = f.text_field :price, class: "form-control"
+      .price-error.modal-errors
+
+    .form-text-big
+      | UPLOAD IMAGE
+
+    .form-group
+      = f.file_field :images, multiple: true
+
+    .actions
+      = f.submit @lot.new_record? ? 'PUBLISH' : 'UPDATE', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light col-lg-3"
