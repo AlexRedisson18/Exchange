@@ -29,4 +29,8 @@ $(document).on('turbolinks:load', function() {
         }
       });
     });
+
+    $(".js-lot-status-btn").on("ajax:success", function () {
+      location.reload()
+    });
 });

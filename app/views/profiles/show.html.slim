@@ -4,16 +4,16 @@
       .avatar-upload-container.mr-3
         = f.file_field :avatar, class: "avatar-input"
         = f.label :avatar
-            - if @profile.avatar?
-              .avatar-hover
-                span.link
-                  | update photo
-              = image_tag(@profile.avatar.thumb.url, class: 'avatar-upload-image')
-            - else
-              .avatar-hover
-                span.link
-                  | add photo
-              = image_tag("avatars/default_avatar.png", class: "avatar-upload-image")
+          - if @profile.avatar?
+            .avatar-hover
+              span.link
+                | update photo
+            = image_tag(@profile.avatar.thumb.url, class: 'avatar-upload-image')
+          - else
+            .avatar-hover
+              span.link
+                | add photo
+            = image_tag("avatars/default_avatar.png", class: "avatar-upload-image")
 
       .other-user-data
         .form-group
@@ -23,7 +23,7 @@
         .form-group.profile-input
           = @profile.email
         .form-group.profile-input
-          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light profile-submit", id: 'modal-submit-button', disabled: true
+          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button', disabled: true
         / = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
     end
 
@@ -35,4 +35,7 @@
             | + ADD LISTTING
         end
 
-    = render 'profiles/lots'
+    = render @lots.published
+    .form-text-big.unpublished-lots-line
+      | YOUR UNPUBLISHED LOTS
+    = render @lots.unpublished

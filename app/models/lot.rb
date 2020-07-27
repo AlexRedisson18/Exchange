@@ -1,5 +1,5 @@
 class Lot < ApplicationRecord
-  enum status: %i[active archived]
+  enum status: %i[published unpublished]
   enum state: %i[excellent good shit]
 
   mount_uploaders :images, ImageUploader

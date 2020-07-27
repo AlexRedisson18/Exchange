@@ -1,6 +1,6 @@
 class LotsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
-  before_action :set_lot, only: %i[show edit update destroy]
+  before_action :set_lot, only: %i[show edit update destroy publish unpublish]
 
   def index
     @lots = Lot.order('created_at DESC')
@@ -25,7 +25,7 @@ class LotsController < ApplicationController
 
   def update
     if @lot.update(lot_params)
-      redirect_to lot_path(@lot)
+      redirect_to lots_path
     else
       render :edit
     end
@@ -34,6 +34,14 @@ class LotsController < ApplicationController
   def destroy
     @lot.destroy
     redirect_to profile_path
+  end
+
+  def publish
+    @lot.published!
+  end
+
+  def unpublish
+    @lot.unpublished!
   end
 
   private

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :users, skip: :all, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords',
@@ -27,6 +26,11 @@ Rails.application.routes.draw do
 
   root 'lots#index', as: 'home'
 
-  resources :lots
-  resource :profile, only: [:show, :update]
+  resources :lots do
+    member do
+      put :publish
+      put :unpublish
+    end
+  end
+  resource :profile, only: %i[show update]
 end
