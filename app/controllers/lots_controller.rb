@@ -51,7 +51,6 @@ class LotsController < ApplicationController
       :title,
       :description,
       :state,
-      :status,
       :price,
       :category_id,
       interesting_category_ids: [],

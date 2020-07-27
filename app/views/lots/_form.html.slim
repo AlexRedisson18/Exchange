@@ -53,5 +53,5 @@
     .form-group
       = f.file_field :images, multiple: true
 
-    .actions
+    .actions.mb-5
       = f.submit @lot.new_record? ? 'PUBLISH' : 'UPDATE', id: 'modal-submit-button', class: "btn mt-1 w-100 text-light col-lg-3"

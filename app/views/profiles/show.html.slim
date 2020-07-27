@@ -35,7 +35,7 @@
             | + ADD LISTTING
         end
 
-    = render 'profiles/lots', collection: @lots.published
+    = render @lots.published
     .form-text-big.unpublished-lots-line
       | YOUR UNPUBLISHED LOTS
-    = render 'profiles/lots', collection: @lots.unpublished
+    = render @lots.unpublished

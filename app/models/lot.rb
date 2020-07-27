@@ -19,9 +19,6 @@ class Lot < ApplicationRecord
   validates :interesting_categories, presence: { message: 'choose one or more category, or specify a price' },
                                      if: :no_price?
 
-  scope :published, -> { where(status: 'published') }
-  scope :unpublished, -> { where(status: 'unpublished') }
-
   def no_price?
     price.nil?
   end
