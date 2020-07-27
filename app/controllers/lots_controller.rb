@@ -1,12 +1,14 @@
 class LotsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
-  before_action :set_lot, only: %i[show edit update destroy publish unpublish]
+  before_action :set_lot, only: %i[edit update destroy publish unpublish]
 
   def index
     @lots = Lot.order('created_at DESC')
   end
 
-  def show; end
+  def show
+    @lot = Lot.find(params[:id])
+  end
 
   def new
     @lot = Lot.new
@@ -59,6 +61,6 @@ class LotsController < ApplicationController
   end
 
   def set_lot
-    @lot = Lot.find(params[:id])
+    @lot = current_user.lots.find(params[:id])
   end
 end
