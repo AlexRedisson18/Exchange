@@ -1,7 +1,8 @@
 .col-lg-4
   .card.border-0.rounded.shadow-sm.mb-3 class=(lot.published? ? 'pub-lot-card' : 'unp-lot-card')
     .lot-image-container
-      = link_to (image_tag(lot.images[0].url, class: 'card-img-top') if lot.images?), lot_path(lot)
+      - if lot.images?
+        = link_to image_tag(lot.images[0].url, class: 'card-img-top'), lot_path(lot)
       - if is_private
         .lot-action-buttons-container
           = link_to "edit", edit_lot_path(lot), class: 'lot-action-button ml-3 link px-3 font-weight-bold'

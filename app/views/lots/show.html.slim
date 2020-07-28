@@ -1,19 +1,19 @@
 .lot-show-container.mt-3
   .container.float-left.d-inline.lot-img-carousel
-    #carouselLotImages.carousel.slide data-ride="carousel"
-      .carousel-inner
-        .carousel-item.active
-          = image_tag(@lot.images[0].midddle_thumb.url, class: 'd-block w-100 car-img', alt: 'Image')
-        - @lot.images[1..-1].each do |image|
-          .carousel-item
-            = image_tag(image.midddle_thumb.url, class: 'd-block w-100 car-img', alt: 'Image')
-      a.carousel-control-prev data-slide="prev" href="#carouselLotImages" role="button"
-        span.carousel-control-prev-icon aria-hidden="true"
-        span.sr-only Previous
-      a.carousel-control-next data-slide="next" href="#carouselLotImages" role="button"
-        span.carousel-control-next-icon aria-hidden="true"
-        span.sr-only Next
-
+    - if @lot.images?
+      #carouselLotImages.carousel.slide data-ride="carousel"
+        .carousel-inner
+          .carousel-item.active
+            = image_tag(@lot.images[0].midddle_thumb.url, class: 'd-block w-100 car-img', alt: 'Image')
+          - @lot.images[1..-1].each do |image|
+            .carousel-item
+              = image_tag(image.midddle_thumb.url, class: 'd-block w-100 car-img', alt: 'Image')
+        a.carousel-control-prev data-slide="prev" href="#carouselLotImages" role="button"
+          span.carousel-control-prev-icon aria-hidden="true"
+          span.sr-only Previous
+        a.carousel-control-next data-slide="next" href="#carouselLotImages" role="button"
+          span.carousel-control-next-icon aria-hidden="true"
+          span.sr-only Next
   .lot-info.d-inline
     h5.card-title.font-weight-bold.link
       = @lot.title
