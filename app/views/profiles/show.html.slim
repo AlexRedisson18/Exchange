@@ -35,8 +35,8 @@
             | + ADD LISTTING
         end
 
-    = render @lots.published, private: true
+    = render @lots.published
     - if @lots.unpublished.any?
       .form-text-big.unpublished-lots-line
         | YOUR UNPUBLISHED LOTS
-      = render @lots.unpublished, private: true
+      = render @lots.unpublished
