@@ -1,2 +1,11 @@
+.categories-filters.mt-3.font-weight-bold
+  = link_to "ALL", lots_path, class: 'link filter-link'
+  = link_to "LAPTOPS", lots_path(category_id: 16), method: :get, class: 'link'
+  = link_to "PHONES", lots_path(category_id: 17), method: :get, class: 'link'
+  = link_to "GADGETS", lots_path(category_id: 18), method: :get, class: 'link'
+  = link_to "CLOTHES", lots_path(category_id: 19), method: :get, class: 'link'
+
+
+
 .row.mt-3
   = render @lots.published

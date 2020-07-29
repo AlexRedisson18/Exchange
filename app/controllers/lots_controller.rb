@@ -3,7 +3,12 @@ class LotsController < ApplicationController
   before_action :set_lot, only: %i[edit update destroy publish unpublish]
 
   def index
-    @lots = Lot.order('created_at DESC')
+    if params[:category_id].present?
+      @lots = Lot.by_category(params[:category_id])
+    else
+      @lots = Lot.order('created_at DESC')
+    end
+    # binding.pry
   end
 
   def show
