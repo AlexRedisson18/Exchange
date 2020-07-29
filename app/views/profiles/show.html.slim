@@ -36,6 +36,7 @@
         end
 
     = render @lots.published
-    .form-text-big.unpublished-lots-line
-      | YOUR UNPUBLISHED LOTS
-    = render @lots.unpublished
+    - if @lots.unpublished.any?
+      .form-text-big.unpublished-lots-line
+        | YOUR UNPUBLISHED LOTS
+      = render @lots.unpublished
