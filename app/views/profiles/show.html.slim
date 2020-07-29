@@ -36,7 +36,7 @@
         end
 
     = render @lots.published, private: true
-    if @lots.unpublished.any?
+    - if @lots.unpublished.any?
       .form-text-big.unpublished-lots-line
         | YOUR UNPUBLISHED LOTS
       = render @lots.unpublished, private: true
