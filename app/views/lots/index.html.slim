@@ -1,2 +1,17 @@
+.categories-container.mt-3.d-flex
+  .categories-filters.w-50.d-flex
+    = link_to "ALL", lots_path, class: "bold-link #{@active_category_id.present? ? '' : 'underline'}"
+    - @categories[0..3].each do |category|
+      = link_to category.name.upcase, lots_path(category_id: category.id), method: :get, class: "bold-link #{category.id == @active_category_id.to_i ? 'underline' : ''}"
+    end
+  .categories-dropdown.w-50.d-flex
+    .dropdown
+      button#categoriesDropdownMenuButton.btn.dropdown-toggle.bold-link aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+        | MORE CATEGORIES
+      .dropdown-menu aria-labelledby="categoriesDropdownMenuButton"
+        - @categories[4..].each do |category|
+          = link_to category.name.upcase, lots_path(category_id: category.id), method: :get, class: 'dropdown-item link'
+        end
+
 .row.mt-3
   = render @lots.published

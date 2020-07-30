@@ -24,7 +24,7 @@
           = @profile.email
         .form-group.profile-input
           = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button', disabled: true
-        / = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
+        = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
     end
 
   .row
