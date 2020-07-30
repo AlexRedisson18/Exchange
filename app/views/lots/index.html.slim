@@ -9,7 +9,7 @@
       button#categoriesDropdownMenuButton.btn.dropdown-toggle.bold-link aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
         | MORE CATEGORIES
       .dropdown-menu aria-labelledby="categoriesDropdownMenuButton"
-        - @categories.each do |category|
+        - @categories[4..].each do |category|
           = link_to category.name.upcase, lots_path(category_id: category.id), method: :get, class: 'dropdown-item link'
         end
 
