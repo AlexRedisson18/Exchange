@@ -32,9 +32,5 @@ RSpec.describe ProfilesController, type: :controller do
         expect(current_user.phone_number).to eql(attr[:phone_number])
       end
     end
-
-    context 'when user is NOT signed in' do
-      it_behaves_like 'response with code', code: 302
-    end
   end
 end

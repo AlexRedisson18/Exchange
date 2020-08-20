@@ -30,7 +30,16 @@ $(document).on('turbolinks:load', function() {
       });
     });
 
-    $(".js-lot-status-btn").on("ajax:success", function () {
-      location.reload()
+  $(".js-lot-status-btn").on("ajax:success", function () {
+    location.reload()
+  });
+
+  $('#new-offer-modal').on('shown.bs.modal', function () {
+    $('.slick-carousel').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: true,
+    infinite: false
     });
+  })
 });

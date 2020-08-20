@@ -14,6 +14,7 @@ class LotsController < ApplicationController
 
   def show
     @lot = Lot.find(params[:id])
+    @profile_lots = current_user.lots.published
   end
 
   def new
