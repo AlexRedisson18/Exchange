@@ -14,7 +14,8 @@ $(document).on('turbolinks:load', function() {
 
 
   $('#new-offer-modal').on('shown.bs.modal', function () {
-    $('.slick-carousel').slick({
+    $(".slider").not('.slick-carousel').slick({
+    // $('.slick-carousel').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     dots: true,

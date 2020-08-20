@@ -2,7 +2,7 @@
   .modal-dialog.modal-dialog-centered.modal-lg
     .modal-content
       .modal-body
-        = form_with model: @offer, url: offers_path,id: 'new-offer', html: { class: "",:'data-type' => 'json' } do |f|
+        = form_with model: @offer, scope: :offer, url: offers_path, method: :post, id: 'new-offer', html: { class: "",:'data-type' => 'json' } do |f|
           .form-group.
             small.form-text
               | Describe your offer and select an item you'd like to exchange:
@@ -14,6 +14,6 @@
                 .slick-lot-container.rounded.shadow-sm.mb-2.mt-2.js-suggested-lot js-lot-id="#{lot.id}" tabindex="0"
                   = image_tag(lot.images[0].midddle_thumb.url, class: "slick-lot-image", alt: 'Image')
                   .card-body
-                    h5.card-title.font-weight-bold
-                      = link_to lot.title, lot_path(lot), class: "link"
+                    h5.card-title.font-weight-bold.link
+                      = lot.title
           = f.submit "OFFER"

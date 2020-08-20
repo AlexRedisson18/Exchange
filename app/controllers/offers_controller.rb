@@ -2,8 +2,7 @@ class OffersController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @lot = Lot.find(params[:requested_lot_id])
-    @offer = @lot.incoming_offers.new(suggested_lot_id: params[:suggested_lot_id])
+    @offer = Offer.new(offer_params)
     if @offer.save
       render json: @offer, status: :created, location: @offer
     else
