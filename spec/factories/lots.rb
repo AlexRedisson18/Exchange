@@ -4,9 +4,11 @@ FactoryBot.define do
     description { 'Lorem ipsum dolor sit amet.' }
     state { 'good' }
     price { 1000 }
-  end
+    association :category, factory: :category
+    association :user, factory: :user
 
-  factory :invalid_lot, parent: :lot do
-    title { nil }
+    # trait 'with_category' do
+    #   association :category, factory: :category
+    # end
   end
 end

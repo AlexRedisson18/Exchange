@@ -2,11 +2,16 @@ class OffersController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @offer = Offer.new(offer_params)
-    if @offer.save
-      render json: @offer, status: :created, location: @offer
+    @suggested_lot = Lot.find(offer_params[:suggested_lot_id])
+    if @suggested_lot.present? && @suggested_lot.user == current_user
+      @offer = Offer.new(offer_params)
+      if @offer.save
+        render json: @offer, status: :created
+      else
+        render json: @offer.errors
+      end
     else
-      render json: @offer.errors
+      head :forbidden
     end
   end
 

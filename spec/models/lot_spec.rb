@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Lot, type: :model do
   describe 'associations' do
-    it { is_expected.to have_many(:incoming_offers).class_name('Offer').inverse_of(:suggested_lot) }
-    it { is_expected.to have_many(:outgoing_offers).class_name('Offer').inverse_of(:requested_lot) }
+    it { is_expected.to have_many(:incoming_offers).class_name('Offer').with_foreign_key('requested_lot_id') }
+    it { is_expected.to have_many(:outgoing_offers).class_name('Offer').with_foreign_key('suggested_lot_id') }
     it { is_expected.to belong_to(:user) }
   end
 

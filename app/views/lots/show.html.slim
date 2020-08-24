@@ -28,7 +28,7 @@
       .d-inline.form-text.font-weight-bold
         - if @lot.price?
           = "$#{@lot.price}"
-    p.card-text.form-text.mb-1.lot-description
+    p.card-text.form-text.mb-1
       = @lot.description
     - if @lot.user == current_user
       .lot-action-buttons-container-show
