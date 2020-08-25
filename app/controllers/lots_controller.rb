@@ -1,14 +1,14 @@
 class LotsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show index]
+  before_action :authenticate_user!, except: %i[index]
   before_action :set_lot, only: %i[edit update destroy publish unpublish]
 
   def index
     @categories = Category.all
-    if params[:category_id].present?
-      @lots = Lot.by_category(params[:category_id])
-    else
-      @lots = Lot.order('created_at DESC')
-    end
+    @lots = if params[:category_id].present?
+              Lot.by_category(params[:category_id])
+            else
+              Lot.order('created_at DESC')
+            end
     @active_category_id = params[:category_id]
   end
 

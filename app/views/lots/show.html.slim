@@ -39,9 +39,8 @@
           = link_to "publish",publish_lot_path(@lot), method: :put, remote: true, class: 'js-lot-status-btn lot-action-button-show link px-3 font-weight-bold'
         = link_to "delete", lot_path(@lot), method: :delete, class: 'lot-action-button-show mr-3 link px-3 font-weight-bold'
 
-= link_to "OFFER", "", class: 'btn text-light offer-button', data: { toggle: "modal", target: "#new-offer-modal" }
-
-.form-text-big.lot-offers-title
-  | YOU OFFERED:
-
-= render 'offers/new'
+- unless @lot.user == current_user
+    = link_to "OFFER", "", class: 'btn text-light offer-button float-right', data: { toggle: "modal", target: "#new-offer-modal"}
+    .form-text-big.lot-offers-title
+      | YOU OFFERED:
+    = render 'offers/new'
