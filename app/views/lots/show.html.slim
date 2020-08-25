@@ -1,5 +1,5 @@
 .lot-show-container.mt-3
-  .container.float-left.d-inline.lot-img-carousel
+  .lot-img-carousel
     - if @lot.images?
       #carouselLotImages.carousel.slide data-ride="carousel"
         .carousel-inner
@@ -14,7 +14,7 @@
         a.carousel-control-next data-slide="next" href="#carouselLotImages" role="button"
           span.carousel-control-next-icon aria-hidden="true"
           span.sr-only Next
-  .lot-info.d-inline
+  .lot-info
     h5.card-title.font-weight-bold.link
       = @lot.title
     p.card-text.form-text.mb-1
@@ -30,3 +30,17 @@
           = "$#{@lot.price}"
     p.card-text.form-text.mb-1
       = @lot.description
+    - if @lot.user == current_user
+      .lot-action-buttons-container-show
+        = link_to "edit", edit_lot_path(@lot), class: 'lot-action-button-show ml-3 link px-3 font-weight-bold'
+        - if @lot.published?
+          = link_to "unpublish",unpublish_lot_path(@lot), method: :put, remote: true, class: 'js-lot-status-btn lot-action-button-show link px-3 font-weight-bold'
+        - else
+          = link_to "publish",publish_lot_path(@lot), method: :put, remote: true, class: 'js-lot-status-btn lot-action-button-show link px-3 font-weight-bold'
+        = link_to "delete", lot_path(@lot), method: :delete, class: 'lot-action-button-show mr-3 link px-3 font-weight-bold'
+
+- unless @lot.user == current_user
+    = link_to "OFFER", "", class: 'btn text-light offer-button float-right', data: { toggle: "modal", target: "#new-offer-modal"}
+    .form-text-big.lot-offers-title
+      | YOU OFFERED:
+    = render 'offers/new'

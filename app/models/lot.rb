@@ -4,8 +4,8 @@ class Lot < ApplicationRecord
 
   mount_uploaders :images, ImageUploader
 
-  has_many :incoming_offers, class_name: 'Offer', inverse_of: :suggested_lot
-  has_many :outgoing_offers, class_name: 'Offer', inverse_of: :requested_lot
+  has_many :incoming_offers, class_name: 'Offer', foreign_key: :requested_lot_id
+  has_many :outgoing_offers, class_name: 'Offer', foreign_key: :suggested_lot_id
   has_and_belongs_to_many :interesting_categories, class_name: 'Category', inverse_of: :interested_lot
   belongs_to :category
   belongs_to :user
@@ -15,7 +15,8 @@ class Lot < ApplicationRecord
                     if: :some_title?
   validates :price, presence: { message: 'specify a price, or choose one or more interesting categories' },
                     if: :no_categories?
-  validates :price, numericality: { greater_than_or_equal_to: 1 }, if: :some_price?
+  validates :price, numericality: { greater_than_or_equal_to: 1 },
+                    if: :some_price?
   validates :interesting_categories, presence: { message: 'choose one or more category, or specify a price' },
                                      if: :no_price?
 
