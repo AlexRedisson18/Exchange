@@ -14,6 +14,7 @@ $(document).on('turbolinks:load', function() {
 
   $('.slick-carousel').slick({
     slidesToShow: 3,
+    slidesToScroll: 1,
     dots: true,
     arrows: true,
     infinite: false
