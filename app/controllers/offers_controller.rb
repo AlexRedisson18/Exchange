@@ -3,7 +3,7 @@ class OffersController < ApplicationController
 
   def create
     @suggested_lot = Lot.find(offer_params[:suggested_lot_id])
-    if @suggested_lot.present? && @suggested_lot.user == current_user
+    if @suggested_lot.user == current_user
       @offer = Offer.new(offer_params)
       if @offer.save
         render json: @offer, status: :created
