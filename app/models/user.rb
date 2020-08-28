@@ -7,4 +7,8 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many :lots
+  has_many :outgoing_offers, through: :lots
+  has_many :incoming_offers, through: :lots
+
+  has_many :messages, inverse_of: :user
 end

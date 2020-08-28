@@ -23,20 +23,35 @@
         .form-group.profile-input
           = @profile.email
         .form-group.profile-input
-          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button', disabled: true
+          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light modal-submit-button", disabled: true
         = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
-    end
 
-  .row
-    .col-lg-4
-      .border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
-        = link_to new_lot_path, class: 'add-listing-div-link' do
-          .span.link.font-weight-bold.add-listing-span
-            | + ADD LISTTING
-        end
+.my-offers-wrapper
+  .tabs-wrapper
+    input#tab-1.input type="radio" name="tabs" checked=""
+    input#tab-2.input type="radio" name="tabs"
+    input#tab-3.input type="radio" name="tabs"
 
-    = render @lots.published
-    - if @lots.unpublished.any?
-      .form-text-big.unpublished-lots-line
-        | YOUR UNPUBLISHED LOTS
-      = render @lots.unpublished
+    label.tab.form-text-big.text-uppercase for='tab-1'
+      | my listings
+    label.tab.form-text-big.text-uppercase for='tab-2'
+      | offers i made
+    label.tab.form-text-big.text-uppercase for='tab-3'
+      | received offers
+    .content.content-1
+      .row
+        .col-lg-4
+          .border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
+            = link_to new_lot_path, class: 'add-listing-div-link' do
+              .span.link.font-weight-bold.add-listing-span
+                | + ADD LISTTING
+            end
+        = render @lots.published
+        - if @lots.unpublished.any?
+          .form-text-big.unpublished-lots-line
+            | YOUR UNPUBLISHED LOTS
+          = render @lots.unpublished
+    .content.content-2
+      = render partial: "offers/offer", collection: @outgoing_offers, locals: { lot_img: :requested_lot, lot_msg: :suggested_lot}
+    .content.content-3
+      = render partial: "offers/offer", collection: @incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}

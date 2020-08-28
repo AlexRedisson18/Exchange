@@ -39,8 +39,14 @@
           = link_to "publish",publish_lot_path(@lot), method: :put, remote: true, class: 'js-lot-status-btn lot-action-button-show link px-3 font-weight-bold'
         = link_to "delete", lot_path(@lot), method: :delete, class: 'lot-action-button-show mr-3 link px-3 font-weight-bold'
 
-- unless @lot.user == current_user
-    = link_to "OFFER", "", class: 'btn text-light offer-button float-right', data: { toggle: "modal", target: "#new-offer-modal"}
-    .form-text-big.lot-offers-title
-      | YOU OFFERED:
-    = render 'offers/new'
+- if @lot.user == current_user
+  .form-text-big.lot-offers-title
+    | RECEIVED OFFERS:
+  = render partial: "offers/offer", collection: @lot.incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}
+- else
+  .offer-new-container
+    = render "offers/form"
+    = link_to "OFFER", "", id: "new-offer-modal", class: 'btn text-light offer-new-button m-0', data: { toggle: "modal", target: "#new-offer-modal"}
+  .form-text-big.lot-offers-title
+    | YOU OFFERED:
+  = render partial: "offers/offer", collection: @offers_i_made, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}
