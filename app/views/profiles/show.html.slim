@@ -28,17 +28,17 @@
 .my-lots-offers-tabs
   ul#myTab.nav.nav-tabs role="tablist"
     li.nav-item role="presentation"
-      a#home-tab.nav-link.active aria-controls="home" aria-selected="true" data-toggle="tab" href="#home" role="tab"
+      a#my-lots-tab.nav-link.active aria-controls="home" aria-selected="true" data-toggle="tab" href="#my-lots" role="tab"
         | my listings
     li.nav-item role="presentation"
-      a#profile-tab.nav-link aria-controls="profile" aria-selected="false" data-toggle="tab" href="#profile" role="tab"
+      a#my-offers-tab.nav-link aria-controls="profile" aria-selected="false" data-toggle="tab" href="#my-offers" role="tab"
         | offers i made
     li.nav-item role="presentation"
-      a#contact-tab.nav-link aria-controls="contact" aria-selected="false" data-toggle="tab" href="#contact" role="tab"
-        | reciver offers
+      a#recived-offers-tab.nav-link aria-controls="contact" aria-selected="false" data-toggle="tab" href="#recived-offers" role="tab"
+        | recived offers
 
   #myTabContent.tab-content.mt-4
-    #home.tab-pane.fade.show.active aria-labelledby="home-tab" role="tabpanel"
+    #my-lots.tab-pane.fade.show.active aria-labelledby="home-tab" role="tabpanel"
       .row
         .col-lg-4
           .border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
@@ -51,7 +51,7 @@
           .form-text-big.unpublished-lots-line
             | YOUR UNPUBLISHED LOTS
           = render @lots.unpublished
-    #profile.tab-pane.fade aria-labelledby="profile-tab" role="tabpanel"
+    #my-offers.tab-pane.fade aria-labelledby="profile-tab" role="tabpanel"
       = render partial: "offers/offer", collection: @outgoing_offers, locals: { lot_img: :requested_lot, lot_msg: :suggested_lot}
-    #contact.tab-pane.fade aria-labelledby="contact-tab" role="tabpanel"
+    #recived-offers.tab-pane.fade aria-labelledby="contact-tab" role="tabpanel"
       = render partial: "offers/offer", collection: @incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}
