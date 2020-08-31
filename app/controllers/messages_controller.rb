@@ -2,13 +2,13 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.find(message_params[:offer_id])
     if @offer.suggested_lot.user == current_user || @offer.requested_lot.user == current_user
       @message = @offer.messages.new(message_params)
       if @message.save
         render json: @message, status: :created
       else
-        render json: @message.errors
+        render json: @message.errors, status: 422
       end
     else
       head :forbidden

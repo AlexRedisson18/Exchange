@@ -25,20 +25,20 @@
         .form-group.profile-input
           = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light modal-submit-button", disabled: true
         = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
+.my-lots-offers-tabs
+  ul#myTab.nav.nav-tabs role="tablist"
+    li.nav-item role="presentation"
+      a#home-tab.nav-link.active aria-controls="home" aria-selected="true" data-toggle="tab" href="#home" role="tab"
+        | my listings
+    li.nav-item role="presentation"
+      a#profile-tab.nav-link aria-controls="profile" aria-selected="false" data-toggle="tab" href="#profile" role="tab"
+        | offers i made
+    li.nav-item role="presentation"
+      a#contact-tab.nav-link aria-controls="contact" aria-selected="false" data-toggle="tab" href="#contact" role="tab"
+        | reciver offers
 
-.my-offers-wrapper
-  .tabs-wrapper
-    input#tab-1.input type="radio" name="tabs" checked=""
-    input#tab-2.input type="radio" name="tabs"
-    input#tab-3.input type="radio" name="tabs"
-
-    label.tab.form-text-big.text-uppercase for='tab-1'
-      | my listings
-    label.tab.form-text-big.text-uppercase for='tab-2'
-      | offers i made
-    label.tab.form-text-big.text-uppercase for='tab-3'
-      | received offers
-    .content.content-1
+  #myTabContent.tab-content.mt-4
+    #home.tab-pane.fade.show.active aria-labelledby="home-tab" role="tabpanel"
       .row
         .col-lg-4
           .border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
@@ -51,7 +51,7 @@
           .form-text-big.unpublished-lots-line
             | YOUR UNPUBLISHED LOTS
           = render @lots.unpublished
-    .content.content-2
+    #profile.tab-pane.fade aria-labelledby="profile-tab" role="tabpanel"
       = render partial: "offers/offer", collection: @outgoing_offers, locals: { lot_img: :requested_lot, lot_msg: :suggested_lot}
-    .content.content-3
+    #contact.tab-pane.fade aria-labelledby="contact-tab" role="tabpanel"
       = render partial: "offers/offer", collection: @incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}
