@@ -4,11 +4,10 @@ FactoryBot.define do
     description { 'Lorem ipsum dolor sit amet.' }
     state { 'good' }
     price { 1000 }
-    association :category, factory: :category
-    association :user, factory: :user
-
-    # trait 'with_category' do
-    #   association :category, factory: :category
-    # end
+    images { [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/image.jpg'), 'image/jpeg')] }
+    category
+    trait :with_user do
+      user
+    end
   end
 end

@@ -17,10 +17,10 @@ RSpec.describe ProfilesController, type: :controller do
 
   describe 'PUT #update' do
     subject(:make_request) do
-      put :update, params: { id: current_user.id, user: attr }
+      put :update, params: { id: current_user.id, user: user_params }
       current_user.reload
     end
-    let(:attr) do
+    let(:user_params) do
       { name: 'NewName', phone_number: '+70009991123' }
     end
 
@@ -28,8 +28,8 @@ RSpec.describe ProfilesController, type: :controller do
       include_context 'with current user'
       it 'change name and phone' do
         make_request
-        expect(current_user.name).to eql(attr[:name])
-        expect(current_user.phone_number).to eql(attr[:phone_number])
+        expect(current_user.name).to eql(user_params[:name])
+        expect(current_user.phone_number).to eql(user_params[:phone_number])
       end
     end
   end
