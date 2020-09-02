@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   def create
     @offer = Offer.find(message_params[:offer_id])
     if @offer.suggested_lot.user == current_user || @offer.requested_lot.user == current_user
-      @message = @offer.messages.new(message_params)
+      @message = current_user.messages.new(message_params)
       if @message.save
         render json: @message, status: :created
       else
@@ -20,7 +20,6 @@ class MessagesController < ApplicationController
   def message_params
     params.require(:message).permit(
       :body,
-      :user_id,
       :offer_id
     )
   end

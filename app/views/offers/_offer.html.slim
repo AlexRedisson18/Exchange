@@ -14,10 +14,9 @@
       = link_to offer.send(lot_msg).title, lot_path(offer.send(lot_msg)), class: "link font-weight-bold"
     = render partial: "messages/message", collection: offer.messages
 
-    = form_with model: @message, url: messages_path, method: :post, id: 'new-message', html: { class: "",:'data-type' => 'json' } do |f|
+    = form_with model: Message.new, url: messages_path, method: :post, id: 'new-message', html: { class: "",:'data-type' => 'json' } do |f|
       .message-error.modal-errors.mb-2
       .form-group
         = f.text_area :body, class: "form-control modal-input", placeholder: "message", rows: 3
-      = f.hidden_field :user_id, value: current_user.id
       = f.hidden_field :offer_id, value: offer.id
       = f.submit "REPLY", class:"btn text-light new-message-button"

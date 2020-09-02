@@ -9,11 +9,8 @@
               .message-error.modal-errors
             = f.hidden_field :requested_lot_id, value:  @lot.id
             = f.hidden_field :suggested_lot_id, class: "js-suggested-lot-id-input", value: ''
+            = render 'messages/form', f: f
 
-            = f.fields_for :messages do |messages_form|
-              .form-group
-                = messages_form.text_area :body, class: "form-control modal-input", placeholder: "write a message here...", rows: 4
-              = messages_form.hidden_field :user_id, value: current_user.id
           .suggested-lot-error.modal-errors
           .container
             .slick-carousel

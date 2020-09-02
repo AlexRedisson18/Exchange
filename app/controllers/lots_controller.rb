@@ -17,8 +17,7 @@ class LotsController < ApplicationController
     @offer.messages.build
     @lot = Lot.find(params[:id])
     @profile_lots = current_user.lots.published
-    @message = Message.new
-    @offers_i_made = Offer.joins(:suggested_lot).where('lots.user_id = ?', current_user)
+    @offers_i_made = current_user.outgoing_offers
   end
 
   def new

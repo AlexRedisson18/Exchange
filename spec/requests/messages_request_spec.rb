@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe MessagesController, type: :controller do
   describe 'POST #create' do
     subject(:make_request) { post :create, params: { message: message_params } }
-    let(:message_params) { attributes_for :message, offer_id: offer.id, user_id: current_user.id }
+    let(:message_params) { attributes_for :message, offer_id: offer.id }
     let(:offer) { create(:offer, requested_lot: requested_lot, suggested_lot: suggested_lot) }
 
     describe 'when user is signed in' do
@@ -35,13 +35,13 @@ RSpec.describe MessagesController, type: :controller do
       end
     end
 
-    # describe 'when user is NOT signed in' do
-    #   context 'fail if creates message' do
-    #     let(:suggested_lot) { create(:lot) }
-    #     let(:requested_lot) { create(:lot) }
+    describe 'when user is NOT signed in' do
+      context 'fail if creates message' do
+        let(:suggested_lot) { create(:lot, :with_user) }
+        let(:requested_lot) { create(:lot, :with_user) }
 
-    #     it_behaves_like 'response with code', code: 302
-    #   end
-    # end
+        it_behaves_like 'response with code', code: 302
+      end
+    end
   end
 end
