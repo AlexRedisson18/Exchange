@@ -1,10 +1,21 @@
+body
+  overflow-y: auto
+
 .categories-filters
   align-items: center
-  justify-content: space-around
+
+.categories-filters
+  a
+    flex-basis: 20%
+    text-align: center
+    border-bottom: 2px solid rgba(0, 0, 0, 0)
+    &:hover
+      border-bottom: 2px solid rgba(0, 81, 100, 0.4)
+
 
 .categories-dropdown
   align-items: flex-end
   justify-content: flex-end
 
 .underline
-  border-bottom: 2px solid #005164
+  border-bottom: 2px solid #005164 !important

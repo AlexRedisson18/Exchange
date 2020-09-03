@@ -23,20 +23,35 @@
         .form-group.profile-input
           = @profile.email
         .form-group.profile-input
-          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light", id: 'modal-submit-button', disabled: true
+          = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light modal-submit-button", disabled: true
         = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
-    end
+.my-lots-offers-tabs
+  ul#myTab.nav.nav-tabs role="tablist"
+    li.nav-item role="presentation"
+      a#my-lots-tab.nav-link.active aria-controls="home" aria-selected="true" data-toggle="tab" href="#my-lots" role="tab"
+        | my listings
+    li.nav-item role="presentation"
+      a#my-offers-tab.nav-link aria-controls="profile" aria-selected="false" data-toggle="tab" href="#my-offers" role="tab"
+        | offers i made
+    li.nav-item role="presentation"
+      a#recived-offers-tab.nav-link aria-controls="contact" aria-selected="false" data-toggle="tab" href="#recived-offers" role="tab"
+        | received offers
 
-  .row
-    .col-lg-4
-      .border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
-        = link_to new_lot_path, class: 'add-listing-div-link' do
-          .span.link.font-weight-bold.add-listing-span
-            | + ADD LISTTING
-        end
-
-    = render @lots.published
-    - if @lots.unpublished.any?
-      .form-text-big.unpublished-lots-line
-        | YOUR UNPUBLISHED LOTS
-      = render @lots.unpublished
+  #myTabContent.tab-content.mt-4
+    #my-lots.tab-pane.fade.show.active aria-labelledby="home-tab" role="tabpanel"
+      .row
+        .col-lg-4
+          .border-0.rounded.shadow-sm.add-listing-card.mb-3.pb-2
+            = link_to new_lot_path, class: 'add-listing-div-link' do
+              .span.link.font-weight-bold.add-listing-span
+                | + ADD LISTTING
+            end
+        = render @lots.published
+        - if @lots.unpublished.any?
+          .form-text-big.unpublished-lots-line
+            | YOUR UNPUBLISHED LOTS
+          = render @lots.unpublished
+    #my-offers.tab-pane.fade aria-labelledby="profile-tab" role="tabpanel"
+      = render partial: "offers/offer", collection: @outgoing_offers, locals: { lot_img: :requested_lot, lot_msg: :suggested_lot}
+    #recived-offers.tab-pane.fade aria-labelledby="contact-tab" role="tabpanel"
+      = render partial: "offers/offer", collection: @incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}

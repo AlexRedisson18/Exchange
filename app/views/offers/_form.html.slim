@@ -2,16 +2,20 @@
   .modal-dialog.modal-dialog-centered.modal-lg
     .modal-content
       .modal-body
-        = form_with model: @offer, scope: :offer, url: offers_path, method: :post, id: 'new-offer', html: { class: "",:'data-type' => 'json' } do |f|
-          .form-group.
+        = form_with model: @offer, url: offers_path, method: :post, id: 'new-offer', html: { class: "",:'data-type' => 'json' } do |f|
+          .form-group
             small.form-text
               | Describe your offer and select an item you'd like to exchange:
-            = f.hidden_field :requested_lot_id, value: @lot.id
-            = f.hidden_field :suggested_lot_id, class: "js-suggested-lot-id-input"
+              .message-error.modal-errors
+            = f.hidden_field :requested_lot_id, value:  @lot.id
+            = f.hidden_field :suggested_lot_id, class: "js-suggested-lot-id-input", value: ''
+            = render 'messages/form', f: f
+
+          .suggested-lot-error.modal-errors
           .container
             .slick-carousel
               - @profile_lots.each do |lot|
-                .slick-lot-container.rounded.shadow-sm.mb-2.mt-2.js-suggested-lot js-lot-id="#{lot.id}" tabindex="0"
+                .slick-lot-container.rounded.shadow-sm.mb-2.mt-2.js-suggested-lot class=('disabled-lot' if @lot.suggested_lots.include?(lot)) js-lot-id=lot.id tabindex="0"
                   = image_tag(lot.images[0].midddle_thumb.url, class: "slick-lot-image", alt: 'Image')
                   .card-body
                     h5.card-title.font-weight-bold.link

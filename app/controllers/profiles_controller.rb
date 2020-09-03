@@ -4,6 +4,9 @@ class ProfilesController < ApplicationController
 
   def show
     @lots = @profile.lots.order('created_at DESC')
+    @outgoing_offers = current_user.outgoing_offers
+    @incoming_offers = current_user.incoming_offers
+    @message = Message.new
   end
 
   def update

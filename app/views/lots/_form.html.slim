@@ -24,7 +24,7 @@
     .form-group
       small.form-text
         | Description
-      = f.text_area :description, class: "form-control modal-input"
+      = f.text_area :description, class: "form-control modal-input", rows: 4
 
     .form-text-big
       | SELECT CATEGORIES YOU ARE INTERESTED IN
@@ -52,6 +52,7 @@
 
     .form-group
       = f.file_field :images, multiple: true
+      .images-errors.modal-errors
 
     .actions.mb-5
       = f.submit @lot.new_record? ? 'PUBLISH' : 'UPDATE', class: "modal-submit-button btn mt-1 w-100 text-light col-lg-3"

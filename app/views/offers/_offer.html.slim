@@ -1,0 +1,22 @@
+.offer-container.d-flex
+  = link_to lot_path(offer.send(lot_img)) do
+    .offer-card.rounded.shadow-sm.mb-3
+      .image-container
+        = image_tag(offer.send(lot_img).images[0].url, class: 'image')
+      p.font-weight-bold.link
+        = offer.send(lot_img).title
+
+  .offer-messages-container.ml-3.mb-3
+    span.d-inline.form-text
+      | your lot:
+      '
+    span.d-inline
+      = link_to offer.send(lot_msg).title, lot_path(offer.send(lot_msg)), class: "link font-weight-bold"
+    = render partial: "messages/message", collection: offer.messages
+
+    = form_with model: Message.new, url: messages_path, method: :post, id: 'new-message', html: { class: "",:'data-type' => 'json' } do |f|
+      .message-error.modal-errors.mb-2
+      .form-group
+        = f.text_area :body, class: "form-control modal-input", placeholder: "message", rows: 3
+      = f.hidden_field :offer_id, value: offer.id
+      = f.submit "REPLY", class:"btn text-light new-message-button"

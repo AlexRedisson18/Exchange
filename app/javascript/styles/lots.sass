@@ -1,3 +1,39 @@
+// in lots#show
+.lot-show-container
+  display: flex
+
+.lot-img-carousel
+  height: 350px
+  width: 500px
+
+.lot-info
+  height: 350px
+  width: 600px
+  margin-left: 10px
+
+.lot-offers-title
+  margin-top: 40px
+  margin-bottom: 40px
+  width: 100%
+  text-align: center
+
+.offer-new-button
+  background-color: #005164 !important
+  border-radius: 3px !important
+  margin: 10px 0 0 10px
+  width: 150px !important
+
+.lot-action-buttons-container-show
+  display: flex
+  align-items: center
+  justify-content: space-around
+  width: 60%
+
+.lot-action-button-show
+  border: 2px solid #005164
+
+// in profile
+
 .lot-image-container
   position: relative
   display: flex
@@ -21,11 +57,11 @@
     justify-content: space-around
 
 .lot-action-button
-    border-radius: 3px
-    border: 2px solid #005164
-    &:hover
-      background-color: rgba(255, 255, 255, 0.5)
-      box-shadow: 0 0 50px #FFF
+  border-radius: 3px
+  border: 2px solid #005164
+  &:hover
+    background-color: rgba(255, 255, 255, 0.5)
+    box-shadow: 0 0 50px #FFF
 
 .pub-lot-card
   .lot-action-buttons-container
@@ -68,3 +104,8 @@
 .add-listing-span
   position: relative
   top: 45%
+  height: 30px
+
+.disabled-lot
+  pointer-events: none
+  opacity: 0.4

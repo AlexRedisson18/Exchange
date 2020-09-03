@@ -13,6 +13,9 @@ require("custom/lots.js")
 require("custom/modal.js")
 require("custom/profile.js")
 require("custom/offer.js")
+require("custom/tabs.js")
+require("custom/message.js")
+
 
 import 'bootstrap-select'
 import 'bootstrap'

@@ -23,6 +23,9 @@ $(document).on('turbolinks:load', function() {
           case 'category':
             $('#new-lot').find('.category-errors').html(errorMessage);
             break;
+          case 'images':
+            $('#new-lot').find('.images-errors').html(errorMessage);
+            break;
           default:
             $('#new-lot').find('.modal-errors').html(errorMessage);
             break;

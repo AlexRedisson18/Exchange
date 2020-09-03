@@ -34,4 +34,5 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i[show update]
   resources :offers, only: :create
+  resources :messages, only: :create
 end

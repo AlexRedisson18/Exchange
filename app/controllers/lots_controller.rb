@@ -4,17 +4,20 @@ class LotsController < ApplicationController
 
   def index
     @categories = Category.all
-    @lots = if params[:category_id].present?
-              Lot.by_category(params[:category_id])
+    @active_category_id = params[:category_id]
+    @lots = if @active_category_id.present?
+              Lot.by_category(@active_category_id)
             else
               Lot.order('created_at DESC')
             end
-    @active_category_id = params[:category_id]
   end
 
   def show
+    @offer = Offer.new
+    @offer.messages.build
     @lot = Lot.find(params[:id])
     @profile_lots = current_user.lots.published
+    @offers_i_made = current_user.outgoing_offers
   end
 
   def new
@@ -24,7 +27,7 @@ class LotsController < ApplicationController
   def create
     @lot = current_user.lots.new(lot_params)
     if @lot.save
-      render json: @lot, status: :created, location: @lot
+      render json: @lot, status: :created
     else
       render json: @lot.errors, status: :unprocessable_entity
     end

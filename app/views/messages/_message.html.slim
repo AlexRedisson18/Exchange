@@ -1,0 +1,10 @@
+.message-container class=('my-message' if message.user == current_user )
+  .form-text
+    = message.created_at.to_date
+  .form-text.font-weight-bold
+    - if message.user == current_user
+      = 'You'
+    - else
+      = message.user.name? ? message.user.name : message.user.email
+  .form-text
+    = message.body
