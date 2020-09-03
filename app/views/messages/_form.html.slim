@@ -1,5 +1,3 @@
 = f.fields_for :messages do |messages_form|
   .form-group
     = messages_form.text_area :body, class: "form-control modal-input", placeholder: "write a message here...", rows: 4
-
-/ = messages_form.hidden_field :user_id, value: current_user.id
