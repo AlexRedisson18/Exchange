@@ -77,15 +77,22 @@ $(document).on('turbolinks:load', function() {
   });
 
   // shows modal error after click "change password link", and add token to appropriate field
-  const openEditPasswordModal = () => {
-    let searchParams = new URLSearchParams(window.location.search)
 
-    if (searchParams.has('reset_password_token')) {
-      $("#edit-password-modal").modal("show");
-    };
+  let searchParams = new URLSearchParams(window.location.search)
+
+  if (searchParams.has('reset_password_token')) {
+    $("#edit-password-modal").modal("show");
     const token = searchParams.get('reset_password_token');
-    $("#reset-password-token").val(token);
+    $("#edit-password-modal").find("#reset-password-token").val(token);
+    let uri = window.location.toString();
+    if (uri.indexOf("?") > 0) {
+      var clean_uri = uri.substring(0, uri.indexOf("?"));
+      window.history.replaceState({}, document.title, clean_uri);
+    };
   };
 
-  openEditPasswordModal();
+  $("form#edit-password-user")
+  .on("ajax:success", function(event) {
+    location.reload()
+  })
 });
