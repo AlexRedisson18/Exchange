@@ -5,9 +5,13 @@
 .slick-lot-image
   width: 100%
 
-.slick-lot-container:focus
+.slick-lot-container
+  overflow: hidden
+  &:focus
+    outline-style: none
+
+.active-lot
   box-shadow: 0px 0px 5px 5px #005164 !important
-  outline-style: none
 
 .offer-description
   min-height: 40px
