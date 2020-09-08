@@ -43,4 +43,8 @@ $(document).on('turbolinks:load', function() {
     $(this).resize();
   });
 
+  $('.slick-lot-container').click(function() {
+    $('.slick-lot-container').removeClass('active-lot');
+    $(this).addClass('active-lot')
+  })
 });

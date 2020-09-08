@@ -1,8 +1,7 @@
 .col-lg-4
   .card.border-0.rounded.shadow-sm.mb-3 class=(lot.published? ? 'pub-lot-card' : 'unp-lot-card')
     .lot-image-container
-      - if lot.images?
-        = link_to image_tag(lot.images[0].url, class: 'card-img-top'), lot_path(lot)
+      = link_to image_tag(lot.images[0].url, class: 'lot-card-img'), lot_path(lot), class: 'image-link'
       - if lot.user == current_user
         .lot-action-buttons-container
           = link_to "edit", edit_lot_path(lot), class: 'lot-action-button ml-3 link px-3 font-weight-bold'
@@ -12,16 +11,17 @@
             = link_to "publish",publish_lot_path(lot), method: :put, remote: true, class: 'js-lot-status-btn lot-action-button link px-3 font-weight-bold'
           = link_to "delete", lot_path(lot), method: :delete, class: 'lot-action-button mr-3 link px-3 font-weight-bold'
     .card-body
-      h5.card-title.font-weight-bold
+      h5.card-title.font-weight-bold.text-truncate
         = link_to lot.title, lot_path(lot), class: "link"
       p.card-text.form-text.mb-1
         | WANTS TO EXCHANGE FOR:
       .card-text
-        .d-inline-block.link.int-categories-box
-          = lot.interesting_categories.map(&:name).join(", ")
-        .d-inline.form-text
-          - if lot.interesting_categories.any? && lot.price?
-            = " or "
-        .d-inline.form-text.font-weight-bold
-          - if lot.price?
+        - if lot.interesting_categories.any?
+          .link.int-categories-box.mr-1.text-truncate
+            = lot.interesting_categories.map(&:name).join(", ")
+        - if lot.interesting_categories.any? && lot.price?
+          .form-text.my-0.mr-1
+            = "or"
+        - if lot.price?
+          .form-text.font-weight-bold.my-0
             = "$#{lot.price}"

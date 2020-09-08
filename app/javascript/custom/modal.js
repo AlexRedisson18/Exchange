@@ -58,7 +58,7 @@ $(document).on('turbolinks:load', function() {
       $(".modal-errors").empty();
       const errors = event.detail[0]["errors"]
       const error_messages =  $.map(errors, function(value, key) {
-        return `<p class="text-danger mb-1">${key} ${value}</p>`;
+        return `<p class="text-danger mb-1">${key}: ${value}</p>`;
       }).join("");
       return $('.modal').find('.modal-errors').html(error_messages);
     });
@@ -68,6 +68,9 @@ $(document).on('turbolinks:load', function() {
     .on("ajax:success", function(event) {
       $(this).parents('.modal').modal('hide');
       $("#password-instructions-modal").modal("show");
+      setTimeout(function () {
+      $("#password-instructions-modal").modal("hide");
+      }, 5000)
     })
 
   // clears error and input fields data after closing the modal
@@ -77,15 +80,22 @@ $(document).on('turbolinks:load', function() {
   });
 
   // shows modal error after click "change password link", and add token to appropriate field
-  const openEditPasswordModal = () => {
-    let searchParams = new URLSearchParams(window.location.search)
 
-    if (searchParams.has('reset_password_token')) {
-      $("#edit-password-modal").modal("show");
-    };
+  let searchParams = new URLSearchParams(window.location.search)
+
+  if (searchParams.has('reset_password_token')) {
+    $("#edit-password-modal").modal("show");
     const token = searchParams.get('reset_password_token');
-    $("#reset-password-token").val(token);
+    $("#edit-password-modal").find("#reset-password-token").val(token);
+    let uri = window.location.toString();
+    if (uri.indexOf("?") > 0) {
+      var clean_uri = uri.substring(0, uri.indexOf("?"));
+      window.history.replaceState({}, document.title, clean_uri);
+    };
   };
 
-  openEditPasswordModal();
+  $("form#edit-password-user")
+  .on("ajax:success", function(event) {
+    location.reload()
+  })
 });
