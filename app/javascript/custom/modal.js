@@ -58,7 +58,7 @@ $(document).on('turbolinks:load', function() {
       $(".modal-errors").empty();
       const errors = event.detail[0]["errors"]
       const error_messages =  $.map(errors, function(value, key) {
-        return `<p class="text-danger mb-1">${key} ${value}</p>`;
+        return `<p class="text-danger mb-1">${key}: ${value}</p>`;
       }).join("");
       return $('.modal').find('.modal-errors').html(error_messages);
     });
@@ -68,6 +68,9 @@ $(document).on('turbolinks:load', function() {
     .on("ajax:success", function(event) {
       $(this).parents('.modal').modal('hide');
       $("#password-instructions-modal").modal("show");
+      setTimeout(function () {
+      $("#password-instructions-modal").modal("hide");
+      }, 5000)
     })
 
   // clears error and input fields data after closing the modal
