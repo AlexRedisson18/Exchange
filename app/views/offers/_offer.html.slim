@@ -7,10 +7,9 @@
         = offer.send(lot_img).title
 
   .offer-messages-container.ml-3.mb-3
-    span.d-inline.form-text
+    h5.d-inline.form-text
       | your lot:
-      '
-    span.d-inline.text-truncate
+    .card-title.font-weight-bold.text-truncate
       = link_to offer.send(lot_msg).title, lot_path(offer.send(lot_msg)), class: "link font-weight-bold"
     = render partial: "messages/message", collection: offer.messages
 
