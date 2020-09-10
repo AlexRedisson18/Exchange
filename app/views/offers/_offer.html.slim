@@ -1,21 +1,35 @@
 .offer-container.d-flex
-  = link_to lot_path(offer.send(lot_img)) do
-    .offer-card.rounded.shadow-sm.mb-3
-      .image-container
-        = image_tag(offer.send(lot_img).images[0].url, class: 'image')
-      p.font-weight-bold.link.text-truncate
-        = offer.send(lot_img).title
+  .card-container
+    .card-wrapper.shadow-sm.mb-3 class=("disabled" if offer.canceled?)
+      = link_to lot_path(offer.send(lot_img)) do
+        .image-wrapper
+          = image_tag(offer.send(lot_img).images[0].url, class: 'image')
+        p.font-weight-bold.link.text-truncate
+          = offer.send(lot_img).title
 
-  .offer-messages-container.ml-3.mb-3
-    h5.d-inline.form-text
-      | your lot:
-    .card-title.font-weight-bold.text-truncate
-      = link_to offer.send(lot_msg).title, lot_path(offer.send(lot_msg)), class: "link font-weight-bold"
-    = render partial: "messages/message", collection: offer.messages
+  .messages-container.mb-3
+    - if  offer.pending?
+      - if lot_msg
+        .offer-messages-header.d-flex. class=("disabled" if offer.canceled?)
+          .form-text.my-0.text-truncate
+            | your lot: &nbsp;
+            = link_to offer.send(lot_msg).title, lot_path(offer.send(lot_msg)), class: "link font-weight-bold"
 
-    = form_with model: Message.new, url: messages_path, method: :post, id: 'new-message', html: { class: "",:'data-type' => 'json' } do |f|
-      .message-error.modal-errors.mb-2
-      .form-group
-        = f.text_area :body, class: "form-control modal-input", placeholder: "message", rows: 3
-      = f.hidden_field :offer_id, value: offer.id
-      = f.submit "REPLY", class:"btn text-light new-message-button"
+      = render partial: "messages/message", collection: offer.messages
+      = form_with model: Message.new, url: messages_path, method: :post, id: 'new-message', html: { class: "",:'data-type' => 'json' } do |f|
+        .message-error.modal-errors.mb-2
+        .form-group
+          = f.text_area :body, class: "form-control modal-input", placeholder: "message", rows: 3
+        = f.hidden_field :offer_id, value: offer.id
+        .offer-buttons.d-flex
+          = f.submit "REPLY", class:"btn text-light new-message-button"
+          = link_to "#{offer.requested_lot.user == current_user ? 'IGNORE' : 'CANCEL'}", cancel_offer_path(offer), method: :put, remote: true, class: 'js-cancel-offer cancel-button btn text-light'
+    - else
+      .form-text.font-weight-bold
+        | This offer was canceled
+      - if offer.suggested_lot.unpublished? || offer.requested_lot.unpublished?
+        .form-text.font-weight-bold
+          | because listing was unpublished
+  .delete-offer-sign
+    - if offer.canceled?
+      = link_to "X", offer_path(offer), method: :delete, class: 'form-text font-weight-bold'

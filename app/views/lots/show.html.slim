@@ -4,10 +4,10 @@
       #carouselLotImages.carousel.slide data-ride="carousel"
         .carousel-inner
           .carousel-item.active
-            = image_tag(@lot.images[0].midddle_thumb.url, class: 'd-block w-100 car-img', alt: 'Image')
+            = image_tag(@lot.images[0].midddle_thumb.url, class: 'd-block w-100', alt: 'Image')
           - @lot.images[1..].each do |image|
             .carousel-item
-              = image_tag(image.midddle_thumb.url, class: 'd-block w-100 car-img', alt: 'Image')
+              = image_tag(image.midddle_thumb.url, class: 'd-block w-100', alt: 'Image')
         a.carousel-control-prev data-slide="prev" href="#carouselLotImages" role="button"
           span.carousel-control-prev-icon aria-hidden="true"
           span.sr-only Previous
@@ -40,13 +40,15 @@
         = link_to "delete", lot_path(@lot), method: :delete, class: 'lot-action-button-show mr-3 link px-3 font-weight-bold'
 
 - if @lot.user == current_user
-  .form-text-big.lot-offers-title
-    | RECEIVED OFFERS:
-  = render partial: "offers/offer", collection: @lot.incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}
+  - if @lot.incoming_offers.any?
+    .form-text-big.lot-offers-title
+      | RECEIVED OFFERS:
+    = render partial: "offers/offer", collection: @lot.incoming_offers, locals: { lot_img: :suggested_lot, lot_msg: false }
 - else
   .offer-new-container
     = render "offers/form"
     = link_to "OFFER", "", id: "new-offer-modal", class: 'btn text-light offer-new-button m-0', data: { toggle: "modal", target: "#new-offer-modal"}
-  .form-text-big.lot-offers-title
-    | YOU OFFERED:
-  = render partial: "offers/offer", collection: @offers_i_made, locals: { lot_img: :suggested_lot, lot_msg: :requested_lot}
+  - if @offers_i_made.exists?
+    .form-text-big.lot-offers-title
+      | YOU OFFERED:
+    = render partial: "offers/offer", collection: @offers_i_made, locals: { lot_img: :suggested_lot, lot_msg: false}

@@ -15,7 +15,7 @@
           .container
             .slick-carousel
               - @profile_lots.each do |lot|
-                .slick-lot-container.rounded.shadow-sm.mb-2.mt-2.js-suggested-lot class=('disabled-lot' if @lot.suggested_lots.include?(lot)) js-lot-id=lot.id tabindex="0"
+                .slick-lot-container.rounded.shadow-sm.mb-2.mt-2.js-suggested-lot class=('disabled' if @lot.suggested_lots.include?(lot) || lot.suggested_lots.include?(@lot)) js-lot-id=lot.id tabindex="0"
                   = image_tag(lot.images[0].midddle_thumb.url, class: "slick-lot-image", alt: 'Image')
                   .card-body
                     h5.card-title.font-weight-bold.link.text-truncate
