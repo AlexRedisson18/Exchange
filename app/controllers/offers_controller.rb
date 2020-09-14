@@ -19,7 +19,6 @@ class OffersController < ApplicationController
 
   def destroy
     @offer.destroy
-    redirect_to profile_path
   end
 
   def cancel
@@ -33,7 +32,8 @@ class OffersController < ApplicationController
   private
 
   def set_offer
-    @offer = Offer.find(params[:id])
+    @offer = current_user.outgoing_offers.find_by(id: params[:id])
+    @offer = current_user.incoming_offers.find_by!(id: params[:id]) if @offer.blank?
   end
 
   def updated_params

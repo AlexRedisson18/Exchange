@@ -32,4 +32,4 @@
           | because listing was unpublished
   .delete-offer-sign
     - if offer.canceled?
-      = link_to "X", offer_path(offer), method: :delete, class: 'form-text font-weight-bold'
+      = link_to "X", offer_path(offer), method: :delete, remote: true, class: 'js-delete-offer form-text font-weight-bold'

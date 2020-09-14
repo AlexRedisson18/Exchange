@@ -6,6 +6,7 @@ FactoryBot.define do
     price { 1000 }
     images { [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/image.jpg'), 'image/jpeg')] }
     category
+    user
     trait :with_user do
       user
     end

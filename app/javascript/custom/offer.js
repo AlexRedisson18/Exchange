@@ -48,7 +48,7 @@ $(document).on('turbolinks:load', function() {
     $(this).addClass('active-lot')
   })
 
-  $(".js-cancel-lot").on("ajax:success", function () {
+  $(".js-cancel-lot, .js-delete-offer").on("ajax:success", function () {
     location.reload()
   });
 });

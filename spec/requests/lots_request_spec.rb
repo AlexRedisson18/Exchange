@@ -58,4 +58,51 @@ RSpec.describe LotsController, type: :controller do
       end
     end
   end
+
+  describe 'cancel after unpublish any lot' do
+    subject(:make_request) { put :unpublish, params: { id: my_lot.id } }
+
+    let!(:my_lot) { create(:lot, user: current_user) }
+    let!(:lot) { create(:lot, :with_user) }
+    let!(:lot_2) { create(:lot, :with_user) }
+    let!(:offer) { create(:offer, suggested_lot: my_lot, requested_lot: lot) }
+    let!(:offer_2) { create(:offer, suggested_lot: lot_2, requested_lot: my_lot) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'cancel outgoing offer' do
+        expect { make_request }.to change { offer.reload.status }.from('pending').to('canceled')
+      end
+
+      it 'cancel incoming offers' do
+        expect { make_request }.to change { offer_2.reload.status }.from('pending').to('canceled')
+      end
+    end
+  end
+
+  describe 'PUT #unpublish' do
+    subject(:make_request) { put :unpublish, params: { id: lot.id } }
+
+    let(:lot) { create(:lot, user: current_user) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'unpublish lot' do
+        expect { make_request }.to change { lot.reload.status }.from('published').to('unpublished')
+      end
+    end
+  end
+
+  describe 'PUT #unpublish' do
+    subject(:make_request) { put :publish, params: { id: lot.id } }
+
+    let(:lot) { create(:lot, user: current_user, status: :unpublished) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'unpublish lot' do
+        expect { make_request }.to change { lot.reload.status }.from('unpublished').to('published')
+      end
+    end
+  end
 end

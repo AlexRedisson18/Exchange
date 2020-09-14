@@ -29,4 +29,49 @@ RSpec.describe OffersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    subject(:make_request) { delete :destroy, params: { id: offer.id } }
+
+    let(:my_lot) { create(:lot, user: current_user) }
+    let(:lot) { create(:lot, :with_user) }
+    let!(:offer) { create(:offer, suggested_lot: my_lot, requested_lot: lot) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'delete offer' do
+        expect { make_request }.to change(Offer, :count).from(1).to(0)
+      end
+    end
+  end
+
+  describe 'PUT #cancel' do
+    subject(:make_request) { put 'cancel', params: { id: offer.id } }
+
+    let(:my_lot) { create(:lot, user: current_user) }
+    let(:lot) { create(:lot, :with_user) }
+    let(:offer) { create(:offer, suggested_lot: my_lot, requested_lot: lot) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'cancel offer' do
+        expect { make_request }.to change { offer.reload.status }.from('pending').to('canceled')
+      end
+    end
+  end
+
+  describe 'PUT #unignore' do
+    subject(:make_request) { put :unignore, params: { id: offer.id } }
+
+    let(:my_lot) { create(:lot, user: current_user) }
+    let(:lot) { create(:lot, :with_user) }
+    let(:offer) { create(:offer, suggested_lot: my_lot, requested_lot: lot, status: :canceled) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'cancel offer' do
+        expect { make_request }.to change { offer.reload.status }.from('canceled').to('pending')
+      end
+    end
+  end
 end
