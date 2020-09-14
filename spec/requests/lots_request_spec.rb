@@ -105,4 +105,36 @@ RSpec.describe LotsController, type: :controller do
       end
     end
   end
+
+  describe 'assigns @offers_i_made' do
+    subject(:make_request) { get :show, params: { id: lot.id } }
+
+    let(:my_lot) { create(:lot, user: current_user) }
+    let(:my_lot_2) { create(:lot, user: current_user) }
+    let(:lot) { create(:lot) }
+    let(:lot_2) { create(:lot) }
+
+    let(:my_offer) { create(:offer, suggested_lot: my_lot, requested_lot: lot) }
+    let(:my_offer_2) { create(:offer, suggested_lot: my_lot_2, requested_lot: lot) }
+    let(:offer) { create(:offer, requested_lot: lot) }
+    let(:offer_2) { create(:offer, suggested_lot: lot, requested_lot: lot_2) }
+
+    context 'when user is signed in' do
+      include_context 'with current user'
+      it 'with my offers' do
+        make_request
+        expect(assigns(:offers_i_made)).to eq([my_offer, my_offer_2])
+      end
+
+      it 'fail with mixed offers' do
+        make_request
+        expect(assigns(:offers_i_made)).not_to eq([my_offer, offer])
+      end
+
+      it 'fail with not my offers' do
+        make_request
+        expect(assigns(:offers_i_made)).not_to eq([offer, offer_2])
+      end
+    end
+  end
 end
