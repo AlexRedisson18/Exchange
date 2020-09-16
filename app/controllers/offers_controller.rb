@@ -8,6 +8,10 @@ class OffersController < ApplicationController
       @suggested_lot = Lot.find(offer_params[:suggested_lot_id])
       if current_user == @suggested_lot.user
         @offer.save!
+        @requested_lot = @offer.requested_lot
+        @requested_lot.user.notifications.create(kind: 'new-offer',
+                                                 lot_id: @suggested_lot.id,
+                                                 my_lot_id: @requested_lot.id)
         render json: @offer, status: :created
       else
         head :forbidden
@@ -23,6 +27,17 @@ class OffersController < ApplicationController
 
   def cancel
     @offer.canceled!
+    @suggested_lot = @offer.suggested_lot
+    @requested_lot = @offer.requested_lot
+    if @offer.suggested_lot.user == current_user
+      @requested_lot.user.notifications.create(kind: 'sender-cancel-offer',
+                                               lot_id: @suggested_lot.id,
+                                               my_lot_id: @requested_lot.id)
+    elsif @offer.requested_lot.user == current_user
+      @suggested_lot.user.notifications.create(kind: 'recipient-cancel-offer',
+                                               lot_id: @requested_lot.id,
+                                               my_lot_id: @suggested_lot.id)
+    end
   end
 
   def unignore

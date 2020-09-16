@@ -54,8 +54,22 @@ class LotsController < ApplicationController
 
   def unpublish
     @lot.unpublished!
-    @lot.incoming_offers.each(&:canceled!)
-    @lot.outgoing_offers.each(&:canceled!)
+    @lot.incoming_offers.each do |offer|
+      offer.canceled!
+      @suggested_lot = offer.suggested_lot
+      @requested_lot = offer.requested_lot
+      @suggested_lot.user.notifications.create(kind: 'requested-lot-unpublished',
+                                               lot_id: @requested_lot.id,
+                                               my_lot_id: @suggested_lot.id)
+    end
+    @lot.outgoing_offers.each do |offer|
+      offer.canceled!
+      @suggested_lot = offer.suggested_lot
+      @requested_lot = offer.requested_lot
+      @requested_lot.user.notifications.create(kind: 'suggested-lot-unpublished',
+                                               lot_id: @suggested_lot.id,
+                                               my_lot_id: @requested_lot.id)
+    end
   end
 
   private

@@ -24,7 +24,6 @@
           = @profile.email
         .form-group.profile-input
           = f.submit "SAVE CHANGES", class: "btn mt-1 w-100 text-light modal-submit-button", disabled: true
-        = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: 'link'
 .my-lots-offers-tabs
   ul#myTab.nav.nav-tabs role="tablist"
     li.nav-item role="presentation"

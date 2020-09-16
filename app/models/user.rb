@@ -9,6 +9,6 @@ class User < ApplicationRecord
   has_many :lots
   has_many :outgoing_offers, through: :lots
   has_many :incoming_offers, through: :lots
-
   has_many :messages, inverse_of: :user
+  has_many :notifications
 end

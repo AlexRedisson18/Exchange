@@ -1,0 +1,30 @@
+.d-flex.align-items-center.pb-3
+  .mark-container.mr-2
+    - if notification.unreaded?
+      .unreaded-mark
+  .notification-body-container
+    - case notification.kind
+    - when 'new-offer'
+      span> = notification.lot.user.name? ? notification.lot.user.name : notification.lot.user.email
+      span> is interested in your
+      = link_to notification.my_lot.title, lot_path(notification.my_lot)
+    - when 'new-message'
+      span> = notification.lot.user.name? ? notification.lot.user.name : notification.lot.user.email
+      span> left a new message on your
+      = link_to notification.my_lot.title, lot_path(notification.my_lot)
+    - when 'sender-cancel-offer'
+      span> = notification.lot.user.name? ? notification.lot.user.name : notification.lot.user.email
+      span> canceled his offer on you
+      = link_to notification.my_lot.title, lot_path(notification.my_lot)
+    - when 'recipient-cancel-offer'
+      span> = notification.lot.user.name? ? notification.lot.user.name : notification.lot.user.email
+      span> canceled your offer
+      = link_to notification.my_lot.title, lot_path(notification.my_lot)
+    - when 'requested-lot-unpublished'
+      span> your offer on
+      = link_to notification.lot.title, lot_path(notification.lot)
+      span< was was canceled because requsted lot was unpublished
+    - when 'suggested-lot-unpublished'
+      span> incoming offer on
+      = link_to notification.my_lot.title, lot_path(notification.my_lot)
+      span< was canceled because suggested lot was unpublished

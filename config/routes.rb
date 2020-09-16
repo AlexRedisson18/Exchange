@@ -33,7 +33,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :profile, only: %i[show update]
+  resource :profile, only: %i[show update] do
+    get 'notifications', to: 'notifications#index'
+  end
+
+  put 'notifications', to: 'notifications#read'
 
   resources :offers, only: %i[create destroy] do
     member do
