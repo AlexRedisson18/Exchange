@@ -32,7 +32,15 @@ Rails.application.routes.draw do
       put :unpublish
     end
   end
+
   resource :profile, only: %i[show update]
-  resources :offers, only: :create
+
+  resources :offers, only: %i[create destroy] do
+    member do
+      put :unignore
+      put :cancel
+    end
+  end
+
   resources :messages, only: :create
 end

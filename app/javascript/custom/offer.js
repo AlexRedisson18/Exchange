@@ -47,4 +47,8 @@ $(document).on('turbolinks:load', function() {
     $('.slick-lot-container').removeClass('active-lot');
     $(this).addClass('active-lot')
   })
+
+  $(".js-cancel-lot, .js-delete-offer").on("ajax:success", function () {
+    location.reload()
+  });
 });

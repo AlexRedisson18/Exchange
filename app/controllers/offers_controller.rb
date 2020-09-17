@@ -1,5 +1,6 @@
 class OffersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_offer, only: %i[cancel unignore destroy]
 
   def create
     @offer = current_user.outgoing_offers.new(updated_params)
@@ -16,7 +17,24 @@ class OffersController < ApplicationController
     end
   end
 
+  def destroy
+    @offer.destroy
+  end
+
+  def cancel
+    @offer.canceled!
+  end
+
+  def unignore
+    @offer.pending!
+  end
+
   private
+
+  def set_offer
+    @offer = current_user.outgoing_offers.find_by(id: params[:id])
+    @offer = current_user.incoming_offers.find_by!(id: params[:id]) if @offer.blank?
+  end
 
   def updated_params
     new_params = offer_params.to_h

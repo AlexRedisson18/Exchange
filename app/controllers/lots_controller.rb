@@ -17,7 +17,7 @@ class LotsController < ApplicationController
     @offer.messages.build
     @lot = Lot.find(params[:id])
     @profile_lots = current_user.lots.published
-    @offers_i_made = current_user.outgoing_offers
+    @offers_i_made = current_user.outgoing_offers.where(requested_lot: @lot)
   end
 
   def new
@@ -54,6 +54,8 @@ class LotsController < ApplicationController
 
   def unpublish
     @lot.unpublished!
+    @lot.incoming_offers.each(&:canceled!)
+    @lot.outgoing_offers.each(&:canceled!)
   end
 
   private

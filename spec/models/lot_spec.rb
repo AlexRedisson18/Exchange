@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Lot, type: :model do
+  describe 'enums' do
+    it { is_expected.to define_enum_for(:status).with_values(%i[published unpublished]) }
+    it { is_expected.to define_enum_for(:state).with_values(%i[excellent good shit]) }
+  end
+
   describe 'associations' do
     it { is_expected.to have_many(:incoming_offers).class_name('Offer').with_foreign_key('requested_lot_id') }
     it { is_expected.to have_many(:outgoing_offers).class_name('Offer').with_foreign_key('suggested_lot_id') }
