@@ -5,10 +5,11 @@ class OffersController < ApplicationController
   def create
     @offer = current_user.outgoing_offers.new(updated_params)
     if @offer.valid?
-      @suggested_lot = Lot.find(offer_params[:suggested_lot_id])
-      if current_user == @suggested_lot.user
+      suggested_lot = Lot.find(offer_params[:suggested_lot_id])
+      requested_lot = @offer.requested_lot
+      if current_user == suggested_lot.user
         @offer.save!
-        NotificationSendingService.new('new-offer', @offer.suggested_lot, @offer.requested_lot).call
+        NotificationSendingService.new('new-offer', suggested_lot, requested_lot).call
         render json: @offer, status: :created
       else
         head :forbidden
@@ -24,12 +25,12 @@ class OffersController < ApplicationController
 
   def cancel
     @offer.canceled!
-    @suggested_lot = @offer.suggested_lot
-    @requested_lot = @offer.requested_lot
+    suggested_lot = @offer.suggested_lot
+    requested_lot = @offer.requested_lot
     if @offer.suggested_lot.user == current_user
-      NotificationSendingService.new('sender-cancel-offer', @offer.suggested_lot, @offer.requested_lot).call
+      NotificationSendingService.new('sender-cancel-offer', suggested_lot, requested_lot).call
     elsif @offer.requested_lot.user == current_user
-      NotificationSendingService.new('recipient-cancel-offer', @offer.requested_lot, @offer.suggested_lot).call
+      NotificationSendingService.new('recipient-cancel-offer', requested_lot, suggested_lot).call
     end
   end
 
