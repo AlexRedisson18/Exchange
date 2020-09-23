@@ -55,7 +55,7 @@ RSpec.describe OffersController, type: :controller do
     end
   end
 
-  fdescribe 'PUT #cancel' do
+  describe 'PUT #cancel' do
     subject(:make_request) { put 'cancel', params: { id: offer.id } }
     subject(:make_request_2) { put 'cancel', params: { id: offer_2.id } }
 
