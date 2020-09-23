@@ -6,11 +6,11 @@ class MessagesController < ApplicationController
     if @offer.suggested_lot.user == current_user || @offer.requested_lot.user == current_user
       @message = current_user.messages.new(message_params)
       if @message.save
-        @suggested_lot = @offer.suggested_lot
-        @requested_lot = @offer.requested_lot
-        @requested_lot.user.notifications.create(kind: 'new-message',
-                                                 lot_id: @suggested_lot.id,
-                                                 my_lot_id: @requested_lot.id)
+        if @offer.suggested_lot.user == current_user
+          NotificationSendingService.new('new-message', @offer.suggested_lot, @offer.requested_lot).call
+        elsif @offer.requested_lot.user == current_user
+          NotificationSendingService.new('new-message', @offer.requested_lot, @offer.suggested_lot).call
+        end
         render json: @message, status: :created
       else
         render json: @message.errors, status: 422

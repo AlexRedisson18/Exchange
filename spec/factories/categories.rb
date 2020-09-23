@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    name { Faker::Food.fruits }
+    name { Faker::Lorem.word }
   end
 end

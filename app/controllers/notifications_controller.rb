@@ -1,11 +1,9 @@
 class NotificationsController < ApplicationController
   def index
-    @user = current_user
-    @notifications = @user.notifications.order('created_at DESC')
+    @notifications = current_user.notifications.order('created_at DESC')
   end
 
   def read
-    @user = current_user
-    @user.notifications.each(&:readed!)
+    current_user.notifications.unread.each(&:read!)
   end
 end

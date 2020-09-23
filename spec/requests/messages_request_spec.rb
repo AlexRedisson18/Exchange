@@ -16,6 +16,16 @@ RSpec.describe MessagesController, type: :controller do
         it 'creates new message' do
           expect { make_request }.to change(Message, :count).from(0).to(1)
         end
+
+        it 'creates notification ' do
+          expect { make_request }.to change(Notification, :count).from(0).to(1)
+        end
+
+        it 'creates "new-message" notification' do
+          make_request
+          notification = suggested_lot.user.notifications.last
+          expect(notification.kind).to eq('new-message')
+        end
       end
 
       context 'creates a message with my suggested lot in offer' do

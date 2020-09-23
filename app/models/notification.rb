@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  enum status: %i[unreaded readed]
+  enum status: %i[unread read]
   enum kind: %i[new-offer
                 new-message
                 sender-cancel-offer
@@ -8,6 +8,6 @@ class Notification < ApplicationRecord
                 requested-lot-unpublished]
 
   belongs_to :user
-  belongs_to :lot, optional: true
-  belongs_to :my_lot, class_name: 'Lot', optional: true
+  belongs_to :lot
+  belongs_to :my_lot, class_name: 'Lot'
 end

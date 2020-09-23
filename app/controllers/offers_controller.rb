@@ -8,10 +8,7 @@ class OffersController < ApplicationController
       @suggested_lot = Lot.find(offer_params[:suggested_lot_id])
       if current_user == @suggested_lot.user
         @offer.save!
-        @requested_lot = @offer.requested_lot
-        @requested_lot.user.notifications.create(kind: 'new-offer',
-                                                 lot_id: @suggested_lot.id,
-                                                 my_lot_id: @requested_lot.id)
+        NotificationSendingService.new('new-offer', @offer.suggested_lot, @offer.requested_lot).call
         render json: @offer, status: :created
       else
         head :forbidden
@@ -30,13 +27,9 @@ class OffersController < ApplicationController
     @suggested_lot = @offer.suggested_lot
     @requested_lot = @offer.requested_lot
     if @offer.suggested_lot.user == current_user
-      @requested_lot.user.notifications.create(kind: 'sender-cancel-offer',
-                                               lot_id: @suggested_lot.id,
-                                               my_lot_id: @requested_lot.id)
+      NotificationSendingService.new('sender-cancel-offer', @offer.suggested_lot, @offer.requested_lot).call
     elsif @offer.requested_lot.user == current_user
-      @suggested_lot.user.notifications.create(kind: 'recipient-cancel-offer',
-                                               lot_id: @requested_lot.id,
-                                               my_lot_id: @suggested_lot.id)
+      NotificationSendingService.new('recipient-cancel-offer', @offer.requested_lot, @offer.suggested_lot).call
     end
   end
 

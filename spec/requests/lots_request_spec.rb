@@ -77,6 +77,22 @@ RSpec.describe LotsController, type: :controller do
       it 'cancel incoming offers' do
         expect { make_request }.to change { offer_2.reload.status }.from('pending').to('canceled')
       end
+
+      it 'creates notifications' do
+        expect { make_request }.to change(Notification, :count).from(0).to(2)
+      end
+
+      it 'creates "new-message" notification' do
+        make_request
+        notification = offer.requested_lot.user.notifications.last
+        expect(notification.kind).to eq('suggested-lot-unpublished')
+      end
+
+      it 'creates "new-message" notification' do
+        make_request
+        notification = offer_2.suggested_lot.user.notifications.last
+        expect(notification.kind).to eq('requested-lot-unpublished')
+      end
     end
   end
 
