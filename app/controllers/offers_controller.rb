@@ -27,9 +27,9 @@ class OffersController < ApplicationController
     @offer.canceled!
     suggested_lot = @offer.suggested_lot
     requested_lot = @offer.requested_lot
-    if @offer.suggested_lot.user == current_user
+    if suggested_lot.user == current_user
       NotificationSendingService.new('sender-cancel-offer', suggested_lot, requested_lot).call
-    elsif @offer.requested_lot.user == current_user
+    elsif requested_lot.user == current_user
       NotificationSendingService.new('recipient-cancel-offer', requested_lot, suggested_lot).call
     end
   end
