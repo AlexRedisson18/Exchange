@@ -14,6 +14,16 @@ RSpec.describe OffersController, type: :controller do
         it 'creates new offer' do
           expect { make_request }.to change(Offer, :count).from(0).to(1)
         end
+
+        it 'creates notification ' do
+          expect { make_request }.to change(Notification, :count).from(0).to(1)
+        end
+
+        it 'creates "new-offer" notification' do
+          make_request
+          notification = requested_lot.user.notifications.last
+          expect(notification.kind).to eq('new-offer')
+        end
       end
 
       context 'fail if creates a offer with another lot' do
@@ -47,15 +57,33 @@ RSpec.describe OffersController, type: :controller do
 
   describe 'PUT #cancel' do
     subject(:make_request) { put 'cancel', params: { id: offer.id } }
+    subject(:make_request_2) { put 'cancel', params: { id: offer_2.id } }
 
     let(:my_lot) { create(:lot, user: current_user) }
     let(:lot) { create(:lot, :with_user) }
     let(:offer) { create(:offer, suggested_lot: my_lot, requested_lot: lot) }
+    let(:offer_2) { create(:offer, suggested_lot: lot, requested_lot: my_lot) }
 
     context 'when user is signed in' do
       include_context 'with current user'
       it 'cancel offer' do
         expect { make_request }.to change { offer.reload.status }.from('pending').to('canceled')
+      end
+
+      it 'create notification ' do
+        expect { make_request }.to change(Notification, :count).from(0).to(1)
+      end
+
+      it 'create "sender-cancel-offer" notification' do
+        make_request
+        notification = lot.user.notifications.last
+        expect(notification.kind).to eq('sender-cancel-offer')
+      end
+
+      it 'create "recipient-cancel-offer" notification' do
+        make_request_2
+        notification = lot.user.notifications.last
+        expect(notification.kind).to eq('recipient-cancel-offer')
       end
     end
   end

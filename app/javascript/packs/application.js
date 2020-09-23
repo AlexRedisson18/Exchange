@@ -15,6 +15,7 @@ require("custom/profile.js")
 require("custom/offer.js")
 require("custom/tabs.js")
 require("custom/message.js")
+require("custom/notifications.js")
 
 
 import 'bootstrap-select'

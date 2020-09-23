@@ -6,10 +6,23 @@ nav.d-flex.flex-column.flex-md-row.align-items-center.p-3.bg-white.border-bottom
     input.form-control.mr-2[type="search" placeholder="Search" aria-label="Search"]
     = link_to "ADD LISTING", new_lot_path, class: 'modal-submit-button btn mx-2 text-light'
     - if user_signed_in?
-      - if current_user.avatar?
-        = link_to image_tag(current_user.avatar.small_thumb.url, class: 'nav-avatar'), profile_path
-      - else
-        = link_to image_tag("avatars/default_avatar.png", class: 'nav-default-avatar'), profile_path
-
+      .user-dropdown
+        .dropdown
+          - if current_user.avatar?
+            = image_tag(current_user.avatar.small_thumb.url, id: 'dropdownMenuButton', class: 'nav-avatar dropdown-toggle', data: { toggle: "dropdown", offset: "-80,0"} )
+          - else
+            = image_tag("avatars/default_avatar.png", id: 'dropdownMenuButton', class: 'nav-default-avatar dropdown-toggle', data: { toggle: "dropdown" } )
+          - if current_user.notifications.unread.any?
+            .notification-icon-wrapper
+              = render 'notifications/notification-icon'
+          .dropdown-menu aria-labelledby="dropdownMenuButton"
+            p.form-text-big
+              = current_user.name
+            = link_to "Profile", profile_path, class: 'dropdown-item form-text'
+            .dropdown-item.d-flex
+              = link_to "Notifications", notifications_profile_path, class: 'form-text m-0'
+              - if current_user.notifications.unread.any?
+                = render 'notifications/notification-icon'
+            = link_to "Logout", destroy_user_session_path, method: :delete, class: 'dropdown-item form-text'
     - else
       = link_to "LOGIN", "", class: 'link', data: { toggle: "modal", target: "#sign-in-modal" }

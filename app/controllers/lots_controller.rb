@@ -54,8 +54,15 @@ class LotsController < ApplicationController
 
   def unpublish
     @lot.unpublished!
-    @lot.incoming_offers.each(&:canceled!)
-    @lot.outgoing_offers.each(&:canceled!)
+    @lot.incoming_offers.each do |offer|
+      offer.canceled!
+      NotificationSendingService.new('requested-lot-unpublished', offer.requested_lot, offer.suggested_lot).call
+    end
+
+    @lot.outgoing_offers.each do |offer|
+      offer.canceled!
+      NotificationSendingService.new('suggested-lot-unpublished', offer.suggested_lot, offer.requested_lot).call
+    end
   end
 
   private
