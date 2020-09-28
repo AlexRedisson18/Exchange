@@ -153,4 +153,34 @@ RSpec.describe LotsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #index/search' do
+    subject(:make_request) { get :index, params: { search: 'apple' } }
+    subject(:request_with_category_id) { get :index, params: { search: 'apple', category_id: phones.id } }
+
+    let(:laptops) { create(:category, name: 'laptops') }
+    let(:phones) { create(:category, name: 'phones') }
+
+    let!(:lot) { create(:lot, title: 'Apple iPhone', category: phones) }
+    let!(:lot2) { create(:lot, title: 'Apple MacBook', category: laptops) }
+    let!(:lot3) { create(:lot, title: 'Bike') }
+
+    context 'when user is signed in' do
+      it 'with the existing lot' do
+        make_request
+        expect(assigns(:lots)).to eq([lot2, lot])
+      end
+
+      it 'fail' do
+        make_request
+        expect(assigns(:lots)).not_to eq([lot3])
+      end
+
+      it 'with category' do
+        request_with_category_id
+        expect(assigns(:lots)).to eq([lot])
+        expect(assigns(:lots)).not_to eq([lot2])
+      end
+    end
+  end
 end

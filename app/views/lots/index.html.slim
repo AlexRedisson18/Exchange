@@ -2,7 +2,7 @@
   .categories-filters.w-50.d-flex
     = link_to "ALL", lots_path, class: "bold-link #{@active_category_id.present? ? '' : 'underline'}"
     - @categories[0..3].each do |category|
-      = link_to category.name.upcase, lots_path(category_id: category.id), method: :get, class: "bold-link #{category.id == @active_category_id.to_i ? 'underline' : ''}"
+      = link_to category.name.upcase, lots_path(category_id: category.id, search: @search_word), method: :get, class: "bold-link #{category.id == @active_category_id.to_i ? 'underline' : ''}"
     end
   .categories-dropdown.w-50.d-flex
     .dropdown

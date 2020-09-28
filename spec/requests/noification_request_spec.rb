@@ -14,7 +14,7 @@ RSpec.describe NotificationsController, type: :controller do
     end
   end
 
-  fdescribe 'GET #index' do
+  describe 'GET #index' do
     subject(:make_request) { get :index }
 
     context 'when user is signed in' do

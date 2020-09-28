@@ -4,12 +4,11 @@ class LotsController < ApplicationController
 
   def index
     @categories = Category.all
+    @search_word = params[:search]
     @active_category_id = params[:category_id]
-    @lots = if @active_category_id.present?
-              Lot.by_category(@active_category_id)
-            else
-              Lot.order('created_at DESC')
-            end
+    @lots = Lot.order('created_at DESC')
+    @lots = @lots.search_by_title(@search_word) if @search_word.present?
+    @lots = @lots.by_category(@active_category_id) if @active_category_id.present?
   end
 
   def show
@@ -74,6 +73,7 @@ class LotsController < ApplicationController
       :state,
       :price,
       :category_id,
+      :search,
       interesting_category_ids: [],
       images: []
     )
