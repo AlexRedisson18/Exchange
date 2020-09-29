@@ -73,7 +73,6 @@ class LotsController < ApplicationController
       :state,
       :price,
       :category_id,
-      :search,
       interesting_category_ids: [],
       images: []
     )

@@ -178,8 +178,9 @@ RSpec.describe LotsController, type: :controller do
 
       it 'with category' do
         request_with_category_id
-        expect(assigns(:lots)).to eq([lot])
-        expect(assigns(:lots)).not_to eq([lot2])
+        expect(assigns(:lots)).to include lot
+        expect(assigns(:lots)).not_to include lot2
+        expect(assigns(:lots)).not_to include lot3
       end
     end
   end
